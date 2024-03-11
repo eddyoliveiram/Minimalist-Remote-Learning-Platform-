@@ -4,14 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreProfessorRequest;
 use App\Models\Professor;
+use App\Repositories\ProfessorRepository;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProfessorsController extends Controller
 {
-    public function index(): View
+    protected ProfessorRepository $professorRepository;
+
+    public function __construct(ProfessorRepository $professorRepository)
     {
-        $professors = Professor::paginate(5);
+        $this->professorRepository = $professorRepository;
+    }
+
+    public function index(Request $request): View
+    {
+        $professors = $this->professorRepository->search($request->input('search'));
+//        $professors = Professor::paginate(5);
         return view('professors_index', compact('professors'));
     }
 
