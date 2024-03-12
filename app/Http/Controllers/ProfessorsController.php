@@ -41,7 +41,7 @@ class ProfessorsController extends Controller
         //
     }
 
-    public function edit(Professor $professor)
+    public function edit(Professor $professor): View
     {
         return view('professors_edit', compact('professor'));
     }

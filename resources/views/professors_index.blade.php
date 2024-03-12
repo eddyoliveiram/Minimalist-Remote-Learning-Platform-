@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center mb-2">
             <div>
                 <a href="{{ route('professors.create') }}"
-                   class="text-white bg-green-500 hover:bg-green-600 border p-2 rounded-lg">
+                   class="text-white bg-blue-500 hover:bg-blue-600 border p-2 rounded-lg">
                     New Professor
                 </a>
             </div>

@@ -2,12 +2,12 @@
     <x-div-content>
         <div class="flex justify-between items-center mb-2">
             <div>
-                <a href="{{ route('courses.create') }}"
+                <a href="{{ route('students.create') }}"
                    class="text-white bg-blue-500 hover:bg-blue-600 border p-2 rounded-lg">
-                    New Course
+                    New Student
                 </a>
             </div>
-            <form action="{{route('courses.index')}}" method="GET" class="flex">
+            <form action="{{route('students.index')}}" method="GET" class="flex">
                 <input type="text" name="search" placeholder="Any column..."
                        class="rounded-l-lg p-2 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white">
                 <button type="submit"
@@ -30,15 +30,19 @@
                 <tr>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-                        Course
+                        Student
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-                        Duration
+                        Registration
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 text-center">
-                        Status
+                        Email
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 text-center">
+                        Phone
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6 text-center">
@@ -47,29 +51,33 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                @if($courses->isEmpty())
+                @if($students->isEmpty())
                     <tr>
                         <td colspan="100%"
                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                            No courses found with your search data.
+                            No students found with your search data.
                         </td>
                     </tr>
                 @endif
-                @foreach($courses as $course)
+                @foreach($students as $student)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{$course->name}}
+                            {{$student->name}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            {{$course->duration}}
+                            {{$student->registration}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            {{$course->status_id}}
+                            {{$student->email}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                            {{$student->phone}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
 
 
-                            <x-edit-delete-actions :id="$course->id" :route="__('courses')" :singular="__('course')"/>
+                            <x-edit-delete-actions :id="$student->id" :route="__('students')"
+                                                   :singular="__('student')"/>
 
                         </td>
                     </tr>
@@ -77,7 +85,7 @@
 
                 </tbody>
             </table>
-            <div class="mt-4">{{ $courses->links() }}</div>
+            <div class="mt-4">{{ $students->links() }}</div>
         </div>
 
 

@@ -18,8 +18,15 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('professors.index')" :active="request()->routeIs('professors')">
+                    <x-nav-link :href="route('professors.index')"
+                                :active="Str::startsWith(request()->route()->getName(),'professors')">
                         {{ __('Professors') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('students.index')"
+                                :active="Str::startsWith(request()->route()->getName(),'students')">
+                        {{ __('Students') }}
                     </x-nav-link>
                 </div>
             </div>

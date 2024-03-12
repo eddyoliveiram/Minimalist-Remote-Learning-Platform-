@@ -1,7 +1,7 @@
 @php
     $breadcrumbs = [
         ['title' => 'Courses', 'url' => route('courses.index')],
-        ['title' => 'Create New Course', 'url' => route('courses.create')]
+        ['title' => 'New Course', 'url' => route('courses.create')]
     ];
 @endphp
 
