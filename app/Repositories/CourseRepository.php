@@ -9,11 +9,15 @@ class CourseRepository
 {
     public function search($term): LengthAwarePaginator
     {
-        $query = Course::query();
+        $query = Course::with(['students', 'professors']);
+
         if ($term) {
-            $query->where('name', 'LIKE', "%{$term}%")
-                ->orWhere('duration', 'LIKE', "%{$term}%");
+            $query->where(function ($query) use ($term) {
+                $query->where('name', 'LIKE', "%{$term}%")
+                    ->orWhere('duration', 'LIKE', "%{$term}%");
+            });
         }
+
         return $query->paginate(5);
     }
 }

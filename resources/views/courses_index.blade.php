@@ -41,6 +41,14 @@
                         Status
                     </th>
                     <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 text-center">
+                        Professors
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 text-center">
+                        Students
+                    </th>
+                    <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6 text-center">
                         Actions
                     </th>
@@ -65,6 +73,12 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                             {{$course->status_id}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                            <x-modal-list-people :title="__('Professors')" :array="$course->professors"/>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                            <x-modal-list-people :title="__('Students')" :array="$course->students"/>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
 

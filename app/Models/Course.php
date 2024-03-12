@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Course extends Model
 {
@@ -13,7 +15,7 @@ class Course extends Model
         'name', 'duration', 'start_date', 'end_date', 'status_id', 'vacancies', 'image'
     ];
 
-    public function scopeSearch($query, $term)
+    public function scopeSearch($query, $term): void
     {
         if ($term) {
             $query->where(function ($q) use ($term) {
@@ -23,15 +25,29 @@ class Course extends Model
         }
     }
 
-    public function status()
-    {
-        return $this->belongsTo(CourseStatus::class, '');
-    }
-
-    public function knowledgeAreas()
+    public function knowledgeAreas(): BelongsToMany
     {
         return $this
             ->belongsToMany(KnowledgeArea::class, 'course_knowledge_area')
             ->withTimestamps();
     }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(CourseStatus::class, '');
+    }
+
+    public function professors(): BelongsToMany
+    {
+        return $this->belongsToMany(Professor::class, 'course_professor')
+            ->withTimestamps();
+    }
+
+    public function students(): BelongsToMany
+    {
+        return $this->belongsToMany(Student::class, 'course_student')
+            ->withTimestamps();
+    }
+
+
 }

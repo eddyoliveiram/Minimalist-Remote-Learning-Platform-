@@ -10,4 +10,10 @@ class Professor extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'registration'];
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_professor');
+    }
+
 }
