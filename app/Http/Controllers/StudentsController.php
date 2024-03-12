@@ -4,17 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStudentRequest;
 use App\Models\Student;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class StudentsController extends Controller
 {
+
+    public StudentRepository $studentRepository;
+
+    public function __construct(StudentRepository $studentRepository)
+    {
+        $this->studentRepository = $studentRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
-    public function index(): view
+    public function index(Request $request): view
     {
-        $students = Student::paginate(6);
+        $students = $this->studentRepository->search($request->input('search'));
         return view('students_index', compact('students'));
     }
 
