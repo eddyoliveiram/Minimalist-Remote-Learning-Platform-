@@ -81,10 +81,11 @@
                             <x-modal-list-people :title="__('Students')" :array="$course->students"/>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-
-
+                            <a href="{{ route('structures.edit', ['structure' => $course->id]) }}"
+                               class="text-gray-600 hover:bg-gray-100 border border-gray-300 p-2 mr-2 rounded-xl">Go
+                                to
+                                Structure</a>
                             <x-edit-delete-actions :id="$course->id" :route="__('courses')" :singular="__('course')"/>
-
                         </td>
                     </tr>
                 @endforeach

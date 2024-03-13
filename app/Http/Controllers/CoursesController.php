@@ -71,4 +71,16 @@ class CoursesController extends Controller
         return redirect()->back()->with('success', 'Course deleted successfully.');
     }
 
+    public function apiCourses($status = null)
+    {
+        $query = Course::query();
+
+        if (!is_null($status)) {
+            $query->where('status', $status);
+        }
+
+        $courses = $query->limit(10)->get(['id', 'name']);
+
+        return response()->json($courses);
+    }
 }

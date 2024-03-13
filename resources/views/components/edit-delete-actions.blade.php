@@ -1,6 +1,6 @@
 @props(['id','route','singular'])
 
-<div x-data="{ isOpen: false }">
+<div x-data="{ isOpen: false }" class="mt-3">
 
     <a href="{{ route($route.'.edit', [$singular => $id]) }}"
        class="text-gray-600 hover:bg-gray-100 border border-gray-300 p-2 mr-2 rounded-xl">Edit</a>
