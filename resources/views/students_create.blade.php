@@ -1,13 +1,8 @@
-@php
-    $breadcrumbs = [
-        ['title' => 'Students', 'url' => route('students.index')],
-        ['title' => 'New Student', 'url' => '']
-    ];
-@endphp
-
 <x-app-layout>
-    <x-breadcrumbs :breadcrumbs="$breadcrumbs"/>
+
     <x-div-content>
+        <span class="text-gray-700 italic">Create Student</span>
+        <hr class="mb-6 mt-2">
         <form method="POST" action="{{ route('students.store') }}" enctype="multipart/form-data">
             @csrf
             @if (session('success'))
@@ -54,8 +49,11 @@
 
             <div class="flex w-full mt-4 space-x-4">
                 <x-primary-button>
-                    Save
+                    <i class="fas fa-save"></i>&nbsp;Save
                 </x-primary-button>
+                <x-secondary-button onclick="history.back()">
+                    <i class="fas fa-circle-arrow-left"></i>&nbsp;Back
+                </x-secondary-button>
             </div>
         </form>
     </x-div-content>

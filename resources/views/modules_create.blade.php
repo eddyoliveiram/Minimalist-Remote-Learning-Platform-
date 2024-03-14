@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-div-content>
-        <span class="text-gray-700 italic">Create Professor</span>
+        <span class="text-gray-700 italic">Create Module</span>
         <hr class="mb-6 mt-2">
-        <form method="POST" action="{{ route('professors.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('modules.store') }}" enctype="multipart/form-data">
             @csrf
             @if (session('success'))
                 <x-div-message>
@@ -16,14 +16,6 @@
                         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
                                       :value="old('name')"></x-text-input>
                         <x-input-error :messages="$errors->get('name')" class="mt-2"/>
-                    </div>
-                </div>
-                <div class="w-1/4">
-                    <div>
-                        <x-input-label for="registration" :value="__('Registration')"/>
-                        <x-text-input id="registration" class="block mt-1 w-full" type="number" name="registration"
-                                      :value="old('registration')"></x-text-input>
-                        <x-input-error :messages="$errors->get('registration')" class="mt-2"/>
                     </div>
                 </div>
             </div>

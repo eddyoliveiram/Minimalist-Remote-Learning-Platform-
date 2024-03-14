@@ -9,7 +9,7 @@ class CourseRepository
 {
     public function search($term): LengthAwarePaginator
     {
-        $query = Course::with(['students', 'professors']);
+        $query = Course::with(['students', 'professors', 'modules']);
 
         if ($term) {
             $query->where(function ($query) use ($term) {

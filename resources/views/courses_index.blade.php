@@ -1,10 +1,14 @@
 <x-app-layout>
+    {{--    <x-div-content>--}}
+    {{--        <span class="text-gray-700">Courses</span>--}}
+    {{--    </x-div-content>--}}
     <x-div-content>
-        <div class="flex justify-between items-center mb-2">
+
+        <div class="flex justify-between items-center mb-2 gap-4">
             <div>
                 <a href="{{ route('courses.create') }}"
-                   class="text-white bg-blue-500 hover:bg-blue-600 border p-2 rounded-lg">
-                    New Course
+                   class="w-20 p-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
+                    <i class="fas fa-plus-circle"></i> &nbsp;New
                 </a>
             </div>
             <form action="{{route('courses.index')}}" method="GET" class="flex">
@@ -15,6 +19,7 @@
                     Search
                 </button>
             </form>
+
         </div>
 
         @if (session('success'))
@@ -49,6 +54,10 @@
                         Students
                     </th>
                     <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4 text-center">
+                        Modules
+                    </th>
+                    <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6 text-center">
                         Actions
                     </th>
@@ -81,10 +90,13 @@
                             <x-modal-list-people :title="__('Students')" :array="$course->students"/>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <a href="{{ route('structures.edit', ['structure' => $course->id]) }}"
-                               class="text-gray-600 hover:bg-gray-100 border border-gray-300 p-2 mr-2 rounded-xl">Go
-                                to
-                                Structure</a>
+                            <a href="{{ route('modules.index',['course_id' => $course->id]) }}"
+                               class="text-white bg-green-500 hover:bg-green-600 border border-gray-300 p-2 rounded-full">
+                                <i class="fas fa-circle-arrow-right"></i>
+                                &nbsp;{{ count($course->modules) }}
+                            </a>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                             <x-edit-delete-actions :id="$course->id" :route="__('courses')" :singular="__('course')"/>
                         </td>
                     </tr>

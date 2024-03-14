@@ -1,13 +1,8 @@
-@php
-    $breadcrumbs = [
-        ['title' => 'Professors', 'url' => route('professors.index')],
-        ['title' => 'Edit', 'url' => '']
-    ];
-@endphp
-
 <x-app-layout>
-    <x-breadcrumbs :breadcrumbs="$breadcrumbs"/>
+
     <x-div-content>
+        <span class="text-gray-700 italic">Edit Professor</span>
+        <hr class="mb-6 mt-2">
         <form method="POST" action="{{ route('professors.update',['professor' => $professor->id]) }}"
               enctype="multipart/form-data">
             @csrf
@@ -38,8 +33,11 @@
 
             <div class="flex w-full mt-4 space-x-4">
                 <x-primary-button>
-                    Save
+                    <i class="fas fa-save"></i>&nbsp;Save
                 </x-primary-button>
+                <x-secondary-button onclick="history.back()">
+                    <i class="fas fa-circle-arrow-left"></i>&nbsp;Back
+                </x-secondary-button>
             </div>
         </form>
     </x-div-content>

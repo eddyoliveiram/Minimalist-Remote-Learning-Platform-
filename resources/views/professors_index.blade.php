@@ -3,8 +3,8 @@
         <div class="flex justify-between items-center mb-2">
             <div>
                 <a href="{{ route('professors.create') }}"
-                   class="text-white bg-blue-500 hover:bg-blue-600 border p-2 rounded-lg">
-                    New Professor
+                   class="w-20 p-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
+                    <i class="fas fa-plus-circle"></i> &nbsp;New
                 </a>
             </div>
             <form action="{{route('professors.index')}}" method="GET" class="flex">

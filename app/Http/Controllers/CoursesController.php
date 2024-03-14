@@ -30,7 +30,6 @@ class CoursesController extends Controller
         $courses = $this->courseRepository->search($request->input('search'));
         $knowledge_areas = KnowledgeArea::all();
         $statuses = CourseStatus::all();
-
         return view('courses_index', compact('courses', 'knowledge_areas', 'statuses'));
     }
 

@@ -20,7 +20,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect()->route('courses.create');
@@ -37,9 +36,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('professors', ProfessorsController::class);
     Route::resource('students', StudentsController::class);
     Route::resource('modules', ModulesController::class);
-
-    Route::resource('structures', CourseStructure::class);
-//    Route::get('/test', [CourseStructure::class, 'search'])->name('courses.structure.search');
 
 
     Route::get('/api/courses/{status?}', [CoursesController::class, 'apiCourses'])->name('api.courses');
