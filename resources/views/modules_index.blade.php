@@ -1,10 +1,5 @@
 <x-app-layout>
     <x-div-content>
-        @if (session('success'))
-            <x-div-message>
-                {{ session('success') }}
-            </x-div-message>
-        @endif
         <div class="flex items-center gap-2">
             @if($course->image)
                 <img src="{{ asset('storage/' . $course->image) }}" class="rounded-full h-16 w-16">
@@ -28,12 +23,15 @@
         <div class="overflow-x-auto">
             <div class="flex justify-between items-center mb-2">
                 <div>
-                    <a href="{{ route('modules.create') }}"
+                    <a href="{{ route('modules.create', ['course_id' => $course->id]) }}"
                        class="w-20 p-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
                         <i class="fas fa-plus-circle"></i> &nbsp;New
                     </a>
                 </div>
-                <form action="{{route('modules.index', ['structure' => $course->id])}}" method="GET" class="flex">
+                <form action="{{route('modules.index', ['course_id' => $course->id])}}" method="GET" class="flex">
+                    @foreach(request()->except('search') as $key => $value)
+                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                    @endforeach
                     <input type="text" name="search" placeholder="Any column..."
                            class="rounded-l-lg p-2 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white">
                     <button type="submit"
@@ -61,7 +59,7 @@
                     <tr>
                         <td colspan="100%"
                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                            No courses found with your search data.
+                            No modules found with your search data.
                         </td>
                     </tr>
                 @endif
@@ -79,6 +77,11 @@
                 </tbody>
             </table>
             <div class="mt-4">{{ $modules->links() }}</div>
+            <div class="flex w-full mt-4 space-x-4">
+                <x-secondary-button onclick="window.location.href='{{ route('courses.index') }}'">
+                    <i class="fas fa-circle-arrow-left"></i>&nbsp;Back
+                </x-secondary-button>
+            </div>
         </div>
     </x-div-content>
 

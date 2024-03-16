@@ -13,6 +13,6 @@ class ModuleRepository
         if ($term) {
             $query->where('name', 'LIKE', "%{$term}%");
         }
-        return $query->paginate(5);
+        return $query->paginate(5)->appends(['course_id' => $course]);
     }
 }

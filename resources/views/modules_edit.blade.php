@@ -1,10 +1,12 @@
 <x-app-layout>
     <x-div-content>
-        <span class="text-gray-700 italic">Create Module</span>
+        <span class="text-gray-700 italic">Edit Module</span>
         <hr class="mb-6 mt-2">
-        <form method="POST" action="{{ route('modules.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('modules.update', ['module' => $module->id]) }}"
+              enctype="multipart/form-data">
             <input type="hidden" value="{{$course_id}}" name="course_id">
             @csrf
+            @method('PUT')
             @if (session('success'))
                 <x-div-message>
                     {{ session('success') }}
@@ -15,7 +17,7 @@
                     <div>
                         <x-input-label for="name" :value="__('Name')"/>
                         <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                                      :value="old('name')"></x-text-input>
+                                      value="{{$module->name}}"></x-text-input>
                         <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                     </div>
                 </div>
