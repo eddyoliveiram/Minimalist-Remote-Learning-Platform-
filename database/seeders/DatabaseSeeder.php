@@ -30,7 +30,8 @@ class DatabaseSeeder extends Seeder
             StudentSeeder::class,
             CourseProfessorSeeder::class,
             CourseStudentsSeeder::class,
-            ModuleSeeder::class
+            ModuleSeeder::class,
+            ContentSeeder::class
         ]);
     }
 }

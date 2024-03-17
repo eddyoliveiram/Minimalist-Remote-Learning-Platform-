@@ -1,19 +1,7 @@
 <x-app-layout>
     <x-div-content>
-        <div class="flex items-center gap-2">
-            @if($course->image)
-                <img src="{{ asset('storage/' . $course->image) }}" class="rounded-full h-16 w-16">
-            @else
-                <div class="rounded-full h-16 w-16 flex items-center justify-center bg-gray-200 text-gray-700">
-                    [IMG]
-                </div>
-            @endif
-
-            <span class="text-4xl">{{$course->name}}</span>
-        </div>
+        <span class="text-4xl">{{$module->name}}</span>
     </x-div-content>
-
-
     <x-div-content>
         @if (session('success'))
             <x-div-message>
@@ -23,12 +11,12 @@
         <div class="overflow-x-auto">
             <div class="flex justify-between items-center mb-2">
                 <div>
-                    <a href="{{ route('modules.create', ['course_id' => $course->id]) }}"
+                    <a href="{{ route('contents.create', ['module_id' => $module->id]) }}"
                        class="w-20 p-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
                         <i class="fas fa-plus-circle"></i> &nbsp;New
                     </a>
                 </div>
-                <form action="{{route('modules.index', ['course_id' => $course->id])}}" method="GET" class="flex">
+                <form action="{{route('contents.index', ['module_id' => $module->id])}}" method="GET" class="flex">
                     @foreach(request()->except('search') as $key => $value)
                         <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                     @endforeach
@@ -46,15 +34,11 @@
                 <tr>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-                        Module
+                        Content
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-                        Contents
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-                        Questions
+                        Type
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
@@ -63,7 +47,7 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                @if($modules->isEmpty())
+                @if($contents->isEmpty())
                     <tr>
                         <td colspan="100%"
                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
@@ -71,32 +55,27 @@
                         </td>
                     </tr>
                 @endif
-                @foreach($modules as $module)
+                @foreach($contents as $content)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{$module->name}}
+                            {{$content->id}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            <a href="{{ route('contents.index',['module_id' => $module->id]) }}"
-                               class="text-white bg-green-500 hover:bg-green-600 border border-gray-300 p-2 rounded-full">
-                                <i class="fas fa-circle-arrow-right"></i>
-                                &nbsp;{{ count($module->contents) }}
-                            </a>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{'-'}}
+                            {{$content->type}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <x-edit-delete-actions :id="$module->id" :route="__('modules')" :singular="__('module')"/>
+                            <x-edit-delete-actions :id="$content->id" :route="__('contents')"
+                                                   :singular="__('content')"/>
                         </td>
                     </tr>
                 @endforeach
 
                 </tbody>
             </table>
-            <div class="mt-4">{{ $modules->links() }}</div>
+            {{--            <div class="mt-4">{{ $modules->links() }}</div>--}}
             <div class="flex w-full mt-4 space-x-4">
-                <x-secondary-button onclick="window.location.href='{{ route('courses.index') }}'">
+                <x-secondary-button
+                    onclick="window.location.href='{{ route('modules.index',['course_id' => $module->course_id]) }}'">
                     <i class="fas fa-circle-arrow-left"></i>&nbsp;Back
                 </x-secondary-button>
             </div>

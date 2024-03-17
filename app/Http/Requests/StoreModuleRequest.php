@@ -23,7 +23,7 @@ class StoreModuleRequest extends FormRequest
     {
         return [
             'course_id' => ['required'],
-            'name' => ['required', 'string', 'max:255']
+            'name' => ['required', 'string', 'max:255', 'unique:modules,name']
         ];
     }
 }
