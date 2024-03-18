@@ -12,10 +12,9 @@ class Content extends Model
     protected $fillable = [
         'position',
         'type',
-        'local',
         'text_typed',
         'file_uploaded',
-        'external_file_url',
+        'video_url',
         'module_id'
     ];
 

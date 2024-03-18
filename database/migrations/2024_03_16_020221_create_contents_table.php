@@ -15,10 +15,9 @@ return new class extends Migration {
             $table->unsignedBigInteger('module_id');
             $table->integer('position')->nullable();
             $table->string('type');
-            $table->string('local');
             $table->text('text_typed')->nullable();
             $table->string('file_uploaded')->nullable();
-            $table->string('external_file_url')->nullable();
+            $table->string('video_url')->nullable();
             $table->timestamps();
 
             $table->foreign('module_id')->references('id')->on('modules');

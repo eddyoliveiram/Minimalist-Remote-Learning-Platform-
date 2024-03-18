@@ -22,10 +22,9 @@ class ContentFactory extends Factory
         return [
             'position' => fake()->unique()->numberBetween(1, 1000),
             'type' => 'image',
-            'local' => 'uploaded',
             'text_typed' => '',
             'file_uploaded' => fake()->imageUrl,
-            'external_file_url' => '',
+            'video_url' => '',
             'module_id' => fake()->randomElement($modulesIds),
         ];
     }
