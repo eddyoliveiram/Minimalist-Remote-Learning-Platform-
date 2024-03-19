@@ -10,13 +10,15 @@ use Illuminate\Http\Request;
 
 class ContentsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
         $module = Module::findOrfail($request->input('module_id'));
-        $contents = Content::where('module_id', $request->input('module_id'))->get();
+        $contents = Content::where('module_id', $request->input('module_id'))->orderBy('position')->get();
+//        $contents = $this->contentService->getContents($request->input('module_id'));
         return view('contents_index', compact('module', 'contents'));
     }
 
@@ -74,6 +76,7 @@ class ContentsController extends Controller
      */
     public function destroy(Content $content)
     {
-        //
+        $content->delete();
+        return redirect()->back()->with('success', 'Content deleted successfully.');
     }
 }

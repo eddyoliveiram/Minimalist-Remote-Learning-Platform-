@@ -34,11 +34,15 @@
                 <tr>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-                        Content
+                        Position
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
                         Type
+                    </th>
+                    <th scope="col"
+                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
+                        Content
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
@@ -47,29 +51,57 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                @if($contents->isEmpty())
-                    <tr>
-                        <td colspan="100%"
-                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                            No modules found with your search data.
-                        </td>
-                    </tr>
-                @endif
-                @foreach($contents as $content)
+                @forelse($contents as $c => $content)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{$content->id}}
+                            {{$content->position.'º'}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{$content->type}}
+                            {{ucfirst($content->type)}}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            @if($content->type === 'image')
+                                <a href="{{ asset('storage/' . $content->file_uploaded) }}" target="_blank"
+                                   style="display: inline-block;">
+                                    <img src="{{ asset('storage/' . $content->file_uploaded) }}" alt="content image"
+                                         style="width: 320px; max-height: 240px">
+                                </a>
+                            @elseif($content->type === 'document')
+                                <a href="{{ asset('storage/' . $content->file_uploaded) }}" download
+                                   class="text-blue-500">
+                                    <i class="fas fa-download"></i> Document [Download]</a>
+                            @elseif($content->type === 'video')
+                                @php
+                                    parse_str(parse_url($content->video_url, PHP_URL_QUERY), $youtubeQuery);
+                                    $videoId = $youtubeQuery['v'] ?? null;
+                                @endphp
+
+                                @if($videoId)
+                                    <iframe width="320" height="240" src="https://www.youtube.com/embed/{{ $videoId }}"
+                                            frameborder="0" allow="autoplay; encrypted-media; fullscreen"
+                                            allowfullscreen></iframe>
+                                @else
+                                    <p>Invalid YouTube link</p>
+                                @endif
+
+                            @else
+                                <!-- Just display the content data as text -->
+                                {{ $content->text_typed }}
+                            @endif
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                             <x-edit-delete-actions :id="$content->id" :route="__('contents')"
                                                    :singular="__('content')"/>
                         </td>
                     </tr>
-                @endforeach
-
+                @empty
+                    <tr>
+                        <td colspan="100%"
+                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
+                            No modules found with your search data.
+                        </td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
             {{--            <div class="mt-4">{{ $modules->links() }}</div>--}}
