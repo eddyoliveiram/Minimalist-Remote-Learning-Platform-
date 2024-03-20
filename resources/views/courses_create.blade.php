@@ -1,8 +1,5 @@
 <x-app-layout>
-
-    <x-div-content>
-        <span class="text-gray-700 italic">Create Course</span>
-        <hr class="mb-6 mt-2">
+    <x-card title="Create Course" shadow separator>
         <form method="POST" action="{{ route('courses.store') }}" enctype="multipart/form-data">
             @csrf
             @if (session('success'))
@@ -13,17 +10,15 @@
             <div class="flex w-full space-x-4">
                 <div class="w-1/4">
                     <div>
-                        <x-input-label for="name" :value="__('Name')"/>
-                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                                      :value="old('name')"></x-text-input>
+                        <x-input label="Name" placeholder="Your name" icon="o-user" name="name"
+                                 value="{{old('name')}}"/>
                         <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                     </div>
                 </div>
                 <div class="w-1/4">
                     <div>
-                        <x-input-label for="duration" :value="__('Duration (hours)')"/>
-                        <x-text-input id="duration" class="block mt-1 w-full" type="number" name="duration"
-                                      :value="old('duration')"></x-text-input>
+                        <x-input label="Duration" placeholder="Duration" icon="o-clock" type="number" name="duration"
+                                 value="{{old('duration')}}"/>
                         <x-input-error :messages="$errors->get('duration')" class="mt-2"/>
                     </div>
                 </div>
@@ -32,41 +27,43 @@
             <div class="flex w-full mt-4 space-x-4">
                 <div class="w-1/4">
                     <div>
-                        <x-input-label for="start_date" :value="__('Start Date')"/>
-                        <x-text-input id="start_date" class="block mt-1 w-full" type="date" name="start_date"
-                                      :value="old('start_date')" required></x-text-input>
+                        <x-datetime label="Start Date" wire:model="myDate" icon="o-calendar" name="start_date"
+                                    :value="old('start_date')" required/>
                         <x-input-error :messages="$errors->get('start_date')" class="mt-2"/>
                     </div>
                 </div>
                 <div class="w-1/4">
                     <div>
-                        <x-input-label for="end_date" :value="__('End Date')"/>
-                        <x-text-input id="end_date" class="block mt-1 w-full" type="date" name="end_date"
-                                      :value="old('end_date')" required></x-text-input>
+                        <x-datetime label="End Date" wire:model="myDate" icon="o-calendar" name="end_date"
+                                    :value="old('end_date')" required/>
                         <x-input-error :messages="$errors->get('end_date')" class="mt-2"/>
                     </div>
                 </div>
             </div>
 
+            @php
+                $statusOptions = [
+                    ['id' => null, 'name' => '- Select -'],
+                    ['id' => 1, 'name' => 'Editing'],
+                    ['id' => 2, 'name' => 'Ready'],
+                    ['id' => 3, 'name' => 'Finished']
+                ];
+            @endphp
+
             <div class="flex w-full mt-4 space-x-4">
                 <div class="w-1/4">
                     <div>
-                        <x-input-label for="status_id" :value="__('Status')"/>
-                        <select id="status_id" name="status_id"
-                                class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
-                            <option value="">- Select -</option>
-                            <option value="1" {{ old('status_id') == "1" ? 'selected' : '' }}>Editing</option>
-                            <option value="2" {{ old('status_id') == "2" ? 'selected' : '' }}>Ready</option>
-                            <option value="3" {{ old('status_id') == "3" ? 'selected' : '' }}>Finished</option>
-                        </select>
+                        <x-select label="Master user" :options="$statusOptions"
+                                  wire:model="selectedUser"
+                                  name="status_id" :value="old('status_id')"/>
                         <x-input-error :messages="$errors->get('status_id')" class="mt-2"/>
                     </div>
                 </div>
                 <div class="w-1/4">
                     <div>
-                        <x-input-label for="vacancies" :value="__('Vacancies')"/>
-                        <x-text-input id="vacancies" class="block mt-1 w-full" type="number" name="vacancies"
-                                      :value="old('vacancies')" required></x-text-input>
+                        <x-input label="Vacancies" placeholder="Vacancies" icon="o-users" type="number"
+                                 name="vacancies"
+                                 value="{{old('vacancies')}}" required/>
                         <x-input-error :messages="$errors->get('vacancies')" class="mt-2"/>
                     </div>
                 </div>
@@ -84,12 +81,15 @@
                     <ul class="mt-2">
                         @foreach($knowledge_areas as $area)
                             <li>
-                                <label for="{{Str::snake($area->description)}}" class="inline-flex items-center">
-                                    <input id="{{Str::snake($area->description)}}" value="{{Str::snake($area->id)}}"
-                                           name="areas[]" type="checkbox"
-                                           class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                                    <span class="ms-2 text-sm text-purple-900">{{$area->description}}</span>
-                                </label>
+                                <x-checkbox label="{{$area->description}}" wire:model="item1" name="areas[]"
+                                            value="{{Str::snake($area->id)}}"/>
+
+                                {{--                                <label for="{{Str::snake($area->description)}}" class="inline-flex items-center">--}}
+                                {{--                                    <input id="{{Str::snake($area->description)}}" value="{{Str::snake($area->id)}}"--}}
+                                {{--                                           name="areas[]" type="checkbox"--}}
+                                {{--                                           class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">--}}
+                                {{--                                    <span class="ms-2 text-sm text-purple-900">{{$area->description}}</span>--}}
+                                {{--                                </label>--}}
                             </li>
                     @endforeach
                 </div>
@@ -104,5 +104,5 @@
                 </x-secondary-button>
             </div>
         </form>
-    </x-div-content>
+    </x-card>
 </x-app-layout>

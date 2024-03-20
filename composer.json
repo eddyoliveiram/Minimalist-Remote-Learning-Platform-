@@ -6,13 +6,17 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "codeat3/blade-phosphor-icons": "^2.1",
         "guzzlehttp/guzzle": "^7.2",
         "itsgoingd/clockwork": "^5.2",
         "laravel/breeze": "^1.29",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
-        "livewire/livewire": "^3.4"
+        "livewire/livewire": "^3.4",
+        "livewire/volt": "^1.6",
+        "owenvoke/blade-fontawesome": "^2.6",
+        "robsontenorio/mary": "^1.25"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

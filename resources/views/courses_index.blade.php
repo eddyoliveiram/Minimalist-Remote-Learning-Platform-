@@ -1,9 +1,5 @@
 <x-app-layout>
-    {{--    <x-div-content>--}}
-    {{--        <span class="text-gray-700">Courses</span>--}}
-    {{--    </x-div-content>--}}
-    <x-div-content>
-
+    <x-card title="Courses List" subtitle="Showing Courses" shadow separator>
         <div class="flex justify-between items-center mb-2 gap-4">
             <div>
                 <a href="{{ route('courses.create') }}"
@@ -19,7 +15,6 @@
                     Search
                 </button>
             </form>
-
         </div>
 
         @if (session('success'))
@@ -28,8 +23,6 @@
             </x-div-message>
         @endif
         <div class="overflow-x-auto">
-
-
             <table class="min-w-full table-auto divide-y divide-gray-200 shadow-md">
                 <thead class="bg-gray-100">
                 <tr>
@@ -60,6 +53,7 @@
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6 text-center">
                         Actions
+                        <x-button label="Open" @click="$wire.myModal1 = true"/>
                     </th>
                 </tr>
                 </thead>
@@ -84,10 +78,11 @@
                             {{$course->status_id}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            <x-modal-list-people :title="__('Professors')" :array="$course->professors"/>
+                            {{--                            <x-modal-list-people :title="__('Professors')" :array="$course->professors"/>--}}
+                            <livewire:modal-component type="professors" :data="$course"/>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            <x-modal-list-people :title="__('Students')" :array="$course->students"/>
+                            <livewire:modal-component type="students" :data="$course"/>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                             <a href="{{ route('modules.index',['course_id' => $course->id]) }}"
@@ -104,13 +99,11 @@
 
                 </tbody>
             </table>
+
             <div class="mt-4">{{ $courses->links() }}</div>
         </div>
 
-
-    </x-div-content>
+    </x-card>
 
 </x-app-layout>
-
-
 
