@@ -1,7 +1,5 @@
 <x-app-layout>
-    <x-div-content>
-        <span class="text-gray-700 italic">Create Professor</span>
-        <hr class="mb-6 mt-2">
+    <x-card title="New Professor" shadow separator>
         <form method="POST" action="{{ route('professors.store') }}" enctype="multipart/form-data">
             @csrf
             @if (session('success'))
@@ -37,5 +35,5 @@
                 </x-secondary-button>
             </div>
         </form>
-    </x-div-content>
+    </x-card>
 </x-app-layout>

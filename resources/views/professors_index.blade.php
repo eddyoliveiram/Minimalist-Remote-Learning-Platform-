@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-div-content>
+    <x-card title="Professor List" subtitle="Showing All Professors" shadow separator>
         <div class="flex justify-between items-center mb-2">
             <div>
                 <a href="{{ route('professors.create') }}"
@@ -73,7 +73,7 @@
         </div>
 
 
-    </x-div-content>
+    </x-card>
 
 </x-app-layout>
 

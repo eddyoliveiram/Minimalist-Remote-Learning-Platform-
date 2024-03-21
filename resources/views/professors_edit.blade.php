@@ -1,8 +1,5 @@
 <x-app-layout>
-
-    <x-div-content>
-        <span class="text-gray-700 italic">Edit Professor</span>
-        <hr class="mb-6 mt-2">
+    <x-card title="Edit Professor" shadow separator>
         <form method="POST" action="{{ route('professors.update',['professor' => $professor->id]) }}"
               enctype="multipart/form-data">
             @csrf
@@ -40,5 +37,5 @@
                 </x-secondary-button>
             </div>
         </form>
-    </x-div-content>
+    </x-card>
 </x-app-layout>

@@ -1,6 +1,6 @@
 <x-app-layout>
 
-    <x-div-content>
+    <x-card title="Edit Student" shadow separator>
         <span class="text-gray-700 italic">Edit Student</span>
         <hr class="mb-6 mt-2">
         <form method="POST" action="{{ route('students.update',['student' => $student->id]) }}"
@@ -58,5 +58,5 @@
                 </x-secondary-button>
             </div>
         </form>
-    </x-div-content>
+    </x-card>
 </x-app-layout>

@@ -1,7 +1,5 @@
 <x-app-layout>
-    <x-div-content>
-        <span class="text-gray-700 italic">Create Content</span>
-        <hr class="mb-6 mt-2">
+    <x-card title="New Content" shadow separator>
         <div x-data="{ tipoSelecionado: '{{ old('type') }}' }">
             <form method="POST" action="{{ route('contents.store') }}" enctype="multipart/form-data">
                 <input type="hidden" value="{{$module_id}}" name="module_id">
@@ -81,5 +79,5 @@
                 </div>
             </form>
         </div>
-    </x-div-content>
+    </x-card>
 </x-app-layout>

@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-card title="Courses List" subtitle="Showing Courses" shadow separator>
+    <x-card title="Courses List" subtitle="Showing All Courses" shadow separator>
         <div class="flex justify-between items-center mb-2 gap-4">
             <div>
                 <a href="{{ route('courses.create') }}"
@@ -53,7 +53,6 @@
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6 text-center">
                         Actions
-                        <x-button label="Open" @click="$wire.myModal1 = true"/>
                     </th>
                 </tr>
                 </thead>

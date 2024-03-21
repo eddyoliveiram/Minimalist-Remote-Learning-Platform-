@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-card title="Create Course" shadow separator>
+    <x-card title="Edit Course" shadow separator>
         <form method="POST" action="{{ route('courses.update', ['course' => $course->id])}}"
               enctype="multipart/form-data">
             @csrf

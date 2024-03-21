@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-card title="Create Course" shadow separator>
+    <x-card title="New Course" shadow separator>
         <form method="POST" action="{{ route('courses.store') }}" enctype="multipart/form-data">
             @csrf
             @if (session('success'))

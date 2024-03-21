@@ -1,6 +1,7 @@
 <x-app-layout>
-    <x-div-content>
-        <div class="flex items-center gap-2">
+    <x-card>
+        <div class="text-sm">Course</div>
+        <div class="flex items-center gap-2 mt-2">
             @if($course->image)
                 <img src="{{ asset('storage/' . $course->image) }}" class="rounded-full h-16 w-16">
             @else
@@ -8,13 +9,12 @@
                     [IMG]
                 </div>
             @endif
-
-            <span class="text-4xl">{{$course->name}}</span>
+            <div class="text-4xl">{{$course->name}}</div>
         </div>
-    </x-div-content>
+    </x-card>
 
 
-    <x-div-content>
+    <x-card class="mt-2">
         @if (session('success'))
             <x-div-message>
                 {{ session('success') }}
@@ -101,7 +101,7 @@
                 </x-secondary-button>
             </div>
         </div>
-    </x-div-content>
+    </x-card>
 
 </x-app-layout>
 

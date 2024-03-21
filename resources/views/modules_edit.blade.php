@@ -1,7 +1,5 @@
 <x-app-layout>
-    <x-div-content>
-        <span class="text-gray-700 italic">Edit Module</span>
-        <hr class="mb-6 mt-2">
+    <x-card title="Edit Module" shadow separator>
         <form method="POST" action="{{ route('modules.update', ['module' => $module->id]) }}"
               enctype="multipart/form-data">
             <input type="hidden" value="{{$course_id}}" name="course_id">
@@ -32,5 +30,5 @@
                 </x-secondary-button>
             </div>
         </form>
-    </x-div-content>
+    </x-card>
 </x-app-layout>

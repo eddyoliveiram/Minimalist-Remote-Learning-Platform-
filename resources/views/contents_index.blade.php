@@ -1,8 +1,11 @@
 <x-app-layout>
-    <x-div-content>
-        <span class="text-4xl">{{$module->name}}</span>
-    </x-div-content>
-    <x-div-content>
+    <x-card>
+        <div class="text-sm">Module</div>
+        <div class="flex items-center gap-2 mt-2">
+            <div class="text-4xl">{{$module->name}}</div>
+        </div>
+    </x-card>
+    <x-card class="mt-2">
         @if (session('success'))
             <x-div-message>
                 {{ session('success') }}
@@ -112,7 +115,7 @@
                 </x-secondary-button>
             </div>
         </div>
-    </x-div-content>
+    </x-card>
 
 </x-app-layout>
 
