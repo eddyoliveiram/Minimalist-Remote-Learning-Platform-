@@ -91,6 +91,9 @@
                             </a>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
+                            {{--                            <x-button icon="fas.edit" wire:click="" spinner class="btn-sm"/>--}}
+                            {{--                            <x-button icon="fas.trash" wire:click="" spinner class="btn-sm"/>--}}
+                            {{--                            <x-button icon="o-edit" wire:click="" spinner class="btn-sm"/>--}}
                             <x-edit-delete-actions :id="$course->id" :route="__('courses')" :singular="__('course')"/>
                         </td>
                     </tr>

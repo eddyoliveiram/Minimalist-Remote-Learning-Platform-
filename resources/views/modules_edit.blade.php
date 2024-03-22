@@ -22,12 +22,12 @@
             </div>
 
             <div class="flex w-full mt-4 space-x-4">
-                <x-primary-button>
-                    <i class="fas fa-save"></i>&nbsp;Save
-                </x-primary-button>
-                <x-secondary-button onclick="history.back()">
-                    <i class="fas fa-circle-arrow-left"></i>&nbsp;Back
-                </x-secondary-button>
+                <x-button type="submit" class="bg-purple-700 text-white hover:bg-purple-900">
+                    <i class="fas fa-save text-white"></i>&nbsp;Save
+                </x-button>
+                <x-button onclick="history.back()">
+                    <i class=" fas fa-circle-arrow-left"></i>&nbsp;Back
+                </x-button>
             </div>
         </form>
     </x-card>
