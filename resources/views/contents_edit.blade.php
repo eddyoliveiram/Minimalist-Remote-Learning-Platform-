@@ -1,8 +1,10 @@
 <x-app-layout>
-    <x-card title="New Content" shadow separator>
-        <div x-data="{ tipoSelecionado: '{{ old('type') }}' }">
-            <form method="POST" action="{{ route('contents.store') }}" enctype="multipart/form-data">
-                <input type="hidden" value="{{$module_id}}" name="module_id">
+    <x-card title="Edit Content" shadow separator>
+        <div x-data="{ tipoSelecionado: '{{ $content->type }}' }">
+            <form method="POST" action="{{ route('contents.update', ['content' => $content->id])}}"
+                  enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
                 @csrf
                 @if (session('success'))
                     <x-div-message>
@@ -14,7 +16,7 @@
                         <div>
                             <x-input-label for="position" :value="__('Position (optional)')"/>
                             <x-text-input id="position" class="block mt-1 w-full" type="number" name="position"
-                                          :value="old('position')"></x-text-input>
+                                          :value="old('position')" value="{{$content->position}}"></x-text-input>
                             <x-input-error :messages="$errors->get('position')" class="mt-2"/>
                         </div>
                     </div>
@@ -25,15 +27,16 @@
                                     class="block mt-1 w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                                     x-model="tipoSelecionado">
                                 <option value="">- Select -</option>
-                                <option value="image" {{ old('type') == "image" ? 'selected' : '' }}>Upload Image
+                                <option value="image">Upload
+                                    Image
                                 </option>
-                                <option value="document" {{ old('type') == "document" ? 'selected' : '' }}>Upload
+                                <option value="document">Upload
                                     Document
                                 </option>
-                                <option value="article" {{ old('type') == "article" ? 'selected' : '' }}>Write an
+                                <option value="article">Write an
                                     Article
                                 </option>
-                                <option value="video" {{ old('type') == "video" ? 'selected' : '' }}>Youtube Video
+                                <option value="video">Youtube Video
                                 </option>
                             </select>
                             <x-input-error :messages="$errors->get('type')" class="mt-2"/>
@@ -43,8 +46,9 @@
                 <div class="flex w-full space-x-4 mt-2">
                     <div class="w-1/4" x-show="tipoSelecionado === 'article'" style="display: none;">
                         <x-input-label for="text_typed" :value="__('Article')"/>
-                        <x-text-area id="text_typed" class="block mt-1 w-full" type="text" name="text_typed"
-                                     :value="old('text_typed')"></x-text-area>
+                        <x-text-area id="text_typed" class="block mt-1 w-full" type="text" name="text_typed">
+                            {{ old('text_typed', $content->text_typed) }}
+                        </x-text-area>
                         <x-input-error :messages="$errors->get('text_typed')" class="mt-2"/>
                     </div>
 
@@ -54,7 +58,7 @@
                         <div>
                             <x-input-label for="video_url" :value="__('Youtube Video URL')"/>
                             <x-text-input id="video_url" class="block mt-1 w-full" type="text" name="video_url"
-                                          :value="old('video_url')"></x-text-input>
+                                          value="{{ old('text_typed', $content->video_url) }}"></x-text-input>
                             <x-input-error :messages="$errors->get('video_url')" class="mt-2"/>
                         </div>
                     </div>

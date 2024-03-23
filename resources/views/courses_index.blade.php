@@ -1,4 +1,11 @@
 <x-app-layout>
+    {{--    <textarea></textarea>--}}
+    {{--    <script>--}}
+    {{--        const easyMDE = new EasyMDE();--}}
+    {{--    </script>--}}
+    {{--    @livewire('text-markdown-component')--}}
+    {{--    <x-editor wire:model="text" label="Description" hint="The full product description"/>--}}
+    
     <x-card title="Courses List" subtitle="Showing All Courses" shadow separator>
         <div class="flex justify-between items-center mb-2 gap-4">
             <div>
@@ -91,8 +98,7 @@
                             </a>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            {{--                            <x-button icon="fas.edit" wire:click="" spinner class="btn-sm"/>--}}
-                            {{--                            <x-button icon="fas.trash" wire:click="" spinner class="btn-sm"/>--}}
+
                             {{--                            <x-button icon="o-edit" wire:click="" spinner class="btn-sm"/>--}}
                             <x-edit-delete-actions :id="$course->id" :route="__('courses')" :singular="__('course')"/>
                         </td>

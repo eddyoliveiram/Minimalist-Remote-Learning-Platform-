@@ -2,12 +2,17 @@
 
 <div x-data="{ isOpen: false }" class="mt-3">
 
-    <a href="{{ route($route.'.edit', [$singular => $id]) }}"
-       class="text-gray-600 hover:bg-gray-100 border border-gray-300 p-2 mr-2 rounded-xl">Edit</a>
+    <a href="{{ route($route . '.edit', [$singular => $id]) }}" class="btn-sm">
+        <x-button icon="fas.edit" wire:click="" spinner class="btn-sm"/>
+    </a>
+    <x-button icon="fas.trash" spinner class="btn-sm" @click="isOpen = true"/>
 
-    <button @click="isOpen = true" class="text-gray-600 hover:bg-gray-100 border border-gray-300 rounded-xl p-2">
-        Delete
-    </button>
+    {{--    <a href="{{ route($route.'.edit', [$singular => $id]) }}"--}}
+    {{--       class="text-gray-600 hover:bg-gray-100 border border-gray-300 p-2 mr-2 rounded-xl">Edit</a>--}}
+
+    {{--    <button @click="isOpen = true" class="text-gray-600 hover:bg-gray-100 border border-gray-300 rounded-xl p-2">--}}
+    {{--        Delete--}}
+    {{--    </button>--}}
 
     <div x-show="isOpen" @click.away="isOpen = false"
          class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50" style="display: none;">

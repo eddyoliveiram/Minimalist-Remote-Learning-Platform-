@@ -48,19 +48,12 @@ class ContentsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Content $content)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Content $content)
     {
-        //
+        $module_id = $content->module_id;
+        return view('contents_edit', compact('content', 'module_id'));
     }
 
     /**
@@ -68,7 +61,8 @@ class ContentsController extends Controller
      */
     public function update(Request $request, Content $content)
     {
-        //
+        $content->update($request->all());
+        return redirect()->back()->with('success', 'Content updated successfully.');
     }
 
     /**
