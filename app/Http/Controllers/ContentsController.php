@@ -7,6 +7,7 @@ use App\Models\Content;
 use App\Models\Module;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ContentsController extends Controller
 {
@@ -59,9 +60,21 @@ class ContentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Content $content)
+    public function update(StoreContentRequest $request, Content $content): RedirectResponse
     {
-        $content->update($request->all());
+        $validatedData = $request->validated();
+
+        if ($content->file_uploaded && Storage::disk('public')->exists($content->file_uploaded)) {
+            Storage::disk('public')->delete($content->file_uploaded);
+        }
+
+        if ($request->hasFile('file_uploaded') && ($request->type === 'image' || $request->type === 'document')) {
+            $filePath = $request->file('file_uploaded')->store('contents', 'public');
+            $validatedData['file_uploaded'] = $filePath;
+        }
+
+
+        $content->update($validatedData);
         return redirect()->back()->with('success', 'Content updated successfully.');
     }
 

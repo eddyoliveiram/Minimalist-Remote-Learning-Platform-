@@ -8,7 +8,9 @@ class ModuleRepository
 {
     public function search($term, $course)
     {
-        $query = Module::with('contents')
+        $query = Module::with('contents',
+            'questions',
+            'questions.alternatives')
             ->where('course_id', $course);
         $query->where('course_id', $course);
         if ($term) {

@@ -18,6 +18,10 @@ class ModalComponent extends Component
         } else {
             if ($type == 'professors') {
                 $this->data = $data->professors;
+            } else {
+                if ($type == 'alternatives') {
+                    $this->data = $data;
+                }
             }
         }
     }

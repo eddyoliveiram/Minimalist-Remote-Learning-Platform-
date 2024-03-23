@@ -1,7 +1,8 @@
 <x-app-layout>
     <x-card title="Edit Content" shadow separator>
         <div x-data="{ tipoSelecionado: '{{ $content->type }}' }">
-            <form method="POST" action="{{ route('contents.update', ['content' => $content->id])}}"
+            <form method="POST"
+                  action="{{ route('contents.update', ['content' => $content->id, 'module_id' => $module_id])}}"
                   enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -11,6 +12,17 @@
                         {{ session('success') }}
                     </x-div-message>
                 @endif
+                @if ($errors->has('module_id'))
+                    <div class="alert bg-red-200"
+                         x-data="{ show: true }"
+                         x-init="setTimeout(() => show = false, 3000)"
+                         x-show="show">
+                        @foreach ($errors->get('module_id') as $error)
+                            {{$error }}
+                        @endforeach
+                    </div>
+                @endif
+
                 <div class="flex w-full space-x-4">
                     <div class="w-1/4">
                         <div>

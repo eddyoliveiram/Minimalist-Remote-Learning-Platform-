@@ -29,17 +29,16 @@ class StoreContentRequest extends FormRequest
             'position' => 'nullable|integer',
         ];
 
-        if (in_array($this->type, ['image', 'document'])) {
-            $rules['file_uploaded'] = 'required|file';
-        } else {
-            if ($this->type == 'article') {
-                $rules['text_typed'] = 'required|string|min:1';
-            } else {
-                if ($this->type == 'video') {
-                    $rules['video_url'] = 'required|url';
-                }
-            }
+        if ($this->type === 'image') {
+            $rules['file_uploaded'] = 'required|file|mimes:jpeg,png,gif';
+        } elseif ($this->type === 'document') {
+            $rules['file_uploaded'] = 'required|file|mimes:doc,docx,xlsx,xls,pdf';
+        } elseif ($this->type === 'article') {
+            $rules['text_typed'] = 'required|string|min:1';
+        } elseif ($this->type === 'video') {
+            $rules['video_url'] = 'required|url';
         }
+
 
         return $rules;
     }

@@ -21,8 +21,15 @@ class ModulesController extends Controller
 
     public function index(Request $request): View
     {
+        $modules = Module::with(
+            'contents',
+            'questions',
+            'questions.alternatives'
+        )->get();
+//        dd($modules[0]->questions[0]->alternatives);
         $course = Course::findOrFail($request->input('course_id'));
         $modules = $this->moduleRepository->search($request->input('search'), $request->input('course_id'));
+       
         return view('modules_index', compact('course', 'modules'));
     }
 

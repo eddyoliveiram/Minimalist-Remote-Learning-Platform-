@@ -31,7 +31,9 @@ class DatabaseSeeder extends Seeder
             CourseProfessorSeeder::class,
             CourseStudentsSeeder::class,
             ModuleSeeder::class,
-            ContentSeeder::class
+            ContentSeeder::class,
+            QuestionSeeder::class,
+            AlternativeSeeder::class
         ]);
     }
 }

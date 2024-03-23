@@ -20,5 +20,10 @@ class Module extends Model
     {
         return $this->hasMany(Content::class, 'module_id');
     }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class, 'module_id');
+    }
 }
 

@@ -109,10 +109,11 @@
             </table>
             {{--            <div class="mt-4">{{ $modules->links() }}</div>--}}
             <div class="flex w-full mt-4 space-x-4">
-                <x-secondary-button
-                    onclick="window.location.href='{{ route('modules.index',['course_id' => $module->course_id]) }}'">
-                    <i class="fas fa-circle-arrow-left"></i>&nbsp;Back
-                </x-secondary-button>
+                <button onclick="history.back()"
+                        class="transition duration-300 bg-gray-100 p-4 px-5 font-semibold text-gray-700 rounded-md text-sm
+                    hover:bg-gray-200">
+                    <i class=" fas fa-circle-arrow-left"></i> Back
+                </button>
             </div>
         </div>
     </x-card>
