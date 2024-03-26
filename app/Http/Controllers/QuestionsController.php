@@ -2,42 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class QuestionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request): View
     {
+        $module_id = $request->input('module_id');
         $questions = Question::with('alternatives')->paginate(6);
-        return view('questions_index', compact('questions'));
+        return view('questions_index', compact('questions', 'module_id'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request): View
     {
-        //
+//        $module_id = $request->input('module_id');
+        $module_id = $request->query('module_id');
+        return view('questions_create', compact('module_id'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Question $question)
-    {
-        //
+        Question::create($request->validated());
+        return redirect()->back()->with('success', 'Question created successfully.');
     }
 
     /**
@@ -61,6 +59,7 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        $question->delete();
+        return redirect()->back()->with('success', 'Question deleted successfully.');
     }
 }

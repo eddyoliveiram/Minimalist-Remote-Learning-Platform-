@@ -1,8 +1,8 @@
 <x-app-layout>
-    <x-card title="Questions List" subtitle="Showing All Professors" shadow separator>
+    <x-card title="Questions List" subtitle="Showing All Questions" shadow separator>
         <div class="flex justify-between items-center mb-2">
             <div>
-                <a href="{{ route('questions.create') }}"
+                <a href="{{ route('questions.create',['module_id' => $module_id]) }}"
                    class="w-20 p-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
                     <i class="fas fa-plus-circle"></i> &nbsp;New
                 </a>
