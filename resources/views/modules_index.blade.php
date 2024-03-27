@@ -87,7 +87,7 @@
                             <a href="{{ route('questions.index',['module_id' => $module->id]) }}"
                                class="text-white bg-green-500 hover:bg-green-600 border border-gray-300 p-2 rounded-full">
                                 <i class="fas fa-circle-arrow-right"></i>
-                                &nbsp;{{ count($module->questions) }}
+                                &nbsp;{{count($module->questions)}}
                             </a>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">

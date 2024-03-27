@@ -1,8 +1,10 @@
 <x-app-layout>
-    <x-card title="New Question" shadow separator>
-        <form method="POST" action="{{ route('questions.store') }}" enctype="multipart/form-data">
-            <input type="hidden" value="{{$module_id}}" name="module_id">
+    <x-card title="Edit Question" shadow separator>
+        <form method="POST" action="{{ route('questions.update', ['question' =>$question->id]) }}"
+              enctype="multipart/form-data">
+            <input type="hidden" value="{{$question->module_id}}" name="module_id">
             @csrf
+            @method('PUT')
             @if (session('success'))
                 <x-div-message>
                     {{ session('success') }}
@@ -18,7 +20,7 @@
                 <div class="w-1/4">
                     <div>
                         <x-input label="Description" placeholder="Description" name="description"
-                                 value="{{old('description')}}"/>
+                                 value="{{$question->description}}"/>
                         <x-input-error :messages="$errors->get('description')" class="mt-2"/>
                     </div>
                 </div>
@@ -40,7 +42,16 @@
                 @endphp
 
                 <div class="w-1/4">
-                    <x-select id="type" name="type" :options="$types" label="Type" wire:model=""/>
+
+                    <x-input-label for="status_id" :value="__('Status')"/>
+                    <select id="type" name="type"
+                            class="block mt-2 w-full border-purple-800 h-3/5 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm">
+                        @foreach($types as $type)
+                            <option
+                                value="{{$type['id']}}" {{ $question->type == $type['name'] ? 'selected' : '' }}>{{$type['name']}}</option>
+                        @endforeach
+
+                    </select>
                     <x-input-error :messages="$errors->get('type')" class="mt-2"/>
                 </div>
             </div>
@@ -49,7 +60,8 @@
                 <x-button type="submit" class="bg-purple-700 text-white hover:bg-purple-900">
                     <i class="fas fa-save text-white"></i>&nbsp;Save
                 </x-button>
-                <x-button onclick="window.location='{{ route('questions.index',['module_id' => $module_id]) }}'">
+                <x-button
+                    onclick="window.location='{{ route('questions.index',['module_id' => $question->module_id]) }}'">
                     <i class="fas fa-circle-arrow-left"></i>&nbsp;Back
                 </x-button>
             </div>

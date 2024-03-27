@@ -4,18 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreQuestionRequest;
 use App\Models\Question;
+use App\Repositories\QuestionRepository;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class QuestionsController extends Controller
 {
+    public function __construct(protected QuestionRepository $questionRepository)
+    {
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): View
     {
         $module_id = $request->input('module_id');
-        $questions = Question::with('alternatives')->paginate(6);
+        $questions = $this->questionRepository->search($request->input('search'), $module_id);
         return view('questions_index', compact('questions', 'module_id'));
     }
 
@@ -43,15 +48,16 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        //
+        return view('questions_edit', compact('question'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Question $question)
+    public function update(StoreQuestionRequest $request, Question $question)
     {
-        //
+        $question->update($request->validated());
+        return redirect()->back()->with('success', 'Question updated successfully.');
     }
 
     /**

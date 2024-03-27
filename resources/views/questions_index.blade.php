@@ -8,6 +8,9 @@
                 </a>
             </div>
             <form action="{{route('questions.index')}}" method="GET" class="flex">
+                @foreach(request()->except('search') as $key => $value)
+                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                @endforeach
                 <input type="text" name="search" placeholder="Any column..."
                        class="rounded-l-lg p-2 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white">
                 <button type="submit"
@@ -34,7 +37,7 @@
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-                        Registation
+                        Type
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
@@ -51,7 +54,7 @@
                     <tr>
                         <td colspan="100%"
                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                            No professors found with your search data.
+                            No register was found with your search data.
                         </td>
                     </tr>
                 @endif

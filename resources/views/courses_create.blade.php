@@ -53,7 +53,7 @@
             <div class="flex w-full mt-4 space-x-4">
                 <div class="w-1/4">
                     <div>
-                        <x-select label="Master user" :options="$statusOptions"
+                        <x-select label="Status" :options="$statusOptions"
                                   wire:model="selectedUser"
                                   name="status_id" :value="old('status_id')"/>
                         <x-input-error :messages="$errors->get('status_id')" class="mt-2"/>
