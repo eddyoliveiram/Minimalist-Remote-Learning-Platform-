@@ -33,15 +33,11 @@
                 <tr>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-                        Name
+                        Description
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-                        Type
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-                        Alternatives
+                        Right One?
                     </th>
                     <th scope="col"
                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6 text-center">
@@ -64,18 +60,10 @@
                             {{$alternative->description}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            {{$alternative->type}}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            @if($alternative->type == 'OBJECTIVE')
-                                <a
-                                    {{--                                href="{{ route('modules.index',['course_id' => $course->id]) }}"--}}
-                                    class="text-white bg-green-500 hover:bg-green-600 border border-gray-300 p-2 rounded-full">
-                                    <i class="fas fa-circle-arrow-right"></i>
-                                    &nbsp;{{ count($alternative->alternatives) }}
-                                </a>
+                            @if($alternative->right_one)
+                                YES
                             @else
-                                - not applicable -
+                                NO
                             @endif
 
                         </td>
