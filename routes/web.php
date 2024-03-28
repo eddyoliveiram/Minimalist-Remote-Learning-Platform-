@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AlternativesController;
 use App\Http\Controllers\ContentsController;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\CourseStructure;
@@ -41,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('modules', ModulesController::class);
     Route::resource('contents', ContentsController::class);
     Route::resource('questions', QuestionsController::class);
-
+    Route::resource('alternatives', AlternativesController::class);
 
     Route::get('/api/courses/{status?}', [CoursesController::class, 'apiCourses'])->name('api.courses');
 });

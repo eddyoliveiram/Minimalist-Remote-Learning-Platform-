@@ -1,13 +1,13 @@
 <x-app-layout>
-    <x-card title="Questions List" subtitle="Showing All Questions" shadow separator>
+    <x-card title="Alternatives List" subtitle="Showing All Alternatives" shadow separator>
         <div class="flex justify-between items-center mb-2">
             <div>
-                <a href="{{ route('questions.create',['module_id' => $module_id]) }}"
+                <a href="{{ route('alternatives.create',['question_id' => $question_id]) }}"
                    class="w-20 p-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
                     <i class="fas fa-plus-circle"></i> &nbsp;New
                 </a>
             </div>
-            <form action="{{route('questions.index')}}" method="GET" class="flex">
+            <form action="{{route('alternatives.index')}}" method="GET" class="flex">
                 @foreach(request()->except('search') as $key => $value)
                     <input type="hidden" name="{{ $key }}" value="{{ $value }}">
                 @endforeach
@@ -50,7 +50,7 @@
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                @if($questions->isEmpty())
+                @if($alternatives->isEmpty())
                     <tr>
                         <td colspan="100%"
                             class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
@@ -58,21 +58,21 @@
                         </td>
                     </tr>
                 @endif
-                @foreach($questions as $question)
+                @foreach($alternatives as $alternative)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{$question->description}}
+                            {{$alternative->description}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            {{$question->type}}
+                            {{$alternative->type}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                            @if($question->type == 'OBJECTIVE')
+                            @if($alternative->type == 'OBJECTIVE')
                                 <a
-                                    href="{{ route('alternatives.index',['question_id' => $question->id]) }}"
+                                    {{--                                href="{{ route('modules.index',['course_id' => $course->id]) }}"--}}
                                     class="text-white bg-green-500 hover:bg-green-600 border border-gray-300 p-2 rounded-full">
                                     <i class="fas fa-circle-arrow-right"></i>
-                                    &nbsp;{{ count($question->alternatives) }}
+                                    &nbsp;{{ count($alternative->alternatives) }}
                                 </a>
                             @else
                                 - not applicable -
@@ -80,16 +80,16 @@
 
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <x-edit-delete-actions :id="$question->id"
-                                                   :route="__('questions')"
-                                                   :singular="__('question')"/>
+                            <x-edit-delete-actions :id="$alternative->id"
+                                                   :route="__('alternatives')"
+                                                   :singular="__('alternative')"/>
                         </td>
                     </tr>
                 @endforeach
 
                 </tbody>
             </table>
-            <div class="mt-4">{{ $questions->links() }}</div>
+            <div class="mt-4">{{ $alternatives->links() }}</div>
         </div>
 
 
