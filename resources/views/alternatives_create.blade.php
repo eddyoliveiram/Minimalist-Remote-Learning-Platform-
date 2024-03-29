@@ -19,9 +19,10 @@
             </div>
             <div class="flex w-full space-x-4">
                 <div class="w-1/4">
-
-                    <x-checkbox class="mt-2" label="That's the correct one" wire:model="item1" name="right_one[]"
-                                value="1"/>
+                    <input id="right" type="checkbox" class="mt-2" label="That's the correct one" wire:model="item1"
+                           name="right_one[]"
+                           value="1"/>
+                    <label for="right">That's the correct one</label>
                 </div>
             </div>
 

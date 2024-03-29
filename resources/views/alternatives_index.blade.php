@@ -61,9 +61,9 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                             @if($alternative->right_one)
-                                YES
+                                <span class="text-green-600 font-semibold">YES</span>
                             @else
-                                NO
+                                <span class="text-red-600 font-semibold">NO</span>
                             @endif
 
                         </td>
