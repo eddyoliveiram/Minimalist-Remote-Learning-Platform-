@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('video_url')->nullable();
             $table->timestamps();
 
-            $table->foreign('module_id')->references('id')->on('modules');
+            $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
         });
     }
 

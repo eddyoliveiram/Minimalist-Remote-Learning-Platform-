@@ -8,6 +8,7 @@ use App\Http\Requests\StoreCourseRequest;
 use App\Models\Course;
 use App\Models\CourseStatus;
 use App\Models\KnowledgeArea;
+use App\Models\Professor;
 use App\Repositories\CourseRepository;
 use App\Services\CourseService;
 use Illuminate\Http\RedirectResponse;
@@ -16,13 +17,10 @@ use Illuminate\View\View;
 
 class CoursesController extends Controller
 {
-    protected CourseService $courseService;
-    protected CourseRepository $courseRepository;
-
-    public function __construct(CourseService $courseService, CourseRepository $courseRepository)
-    {
-        $this->courseService = $courseService;
-        $this->courseRepository = $courseRepository;
+    public function __construct(
+        protected CourseService $courseService,
+        protected CourseRepository $courseRepository
+    ) {
     }
 
     public function index(Request $request): View
@@ -34,13 +32,13 @@ class CoursesController extends Controller
     public function create(): View
     {
         $knowledge_areas = KnowledgeArea::all();
-        return view('courses_create', compact('knowledge_areas'));
+        $professors = Professor::all();
+        return view('courses_create', compact('knowledge_areas', 'professors'));
     }
 
     public function store(StoreCourseRequest $request): RedirectResponse
     {
-        $course = $this->courseService->createCourse($request->validated(), $request->file('image'));
-        $course->knowledgeAreas()->attach($request->validated()['areas']);
+        $this->courseService->createCourse($request->validated(), $request->file('image'));
         return redirect()->back()->with('success', 'Course created successfully.');
     }
 
@@ -49,19 +47,19 @@ class CoursesController extends Controller
         $course = Course::with('knowledgeAreas')->findOrFail($id);
         $knowledge_areas = KnowledgeArea::all();
         $statuses = CourseStatus::all();
+        $professors = Professor::all();
         return view('courses_edit', compact(
-            'course', 'knowledge_areas', 'statuses'
+            'course', 'knowledge_areas', 'statuses', 'professors'
         ));
     }
 
     public function update(StoreCourseRequest $request, $id): RedirectResponse
     {
-        $course = $this->courseService->updateCourse($id, $request->validated(), $request->file('image'));
-        $course->knowledgeAreas()->sync($request->validated()['areas']);
+        $this->courseService->updateCourse($id, $request->validated(), $request->file('image'));
         return redirect()->back()->with('success', 'Course updated successfully.');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         $course = Course::findOrFail($id);
         $course->delete();

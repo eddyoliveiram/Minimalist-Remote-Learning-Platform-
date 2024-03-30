@@ -76,22 +76,26 @@
                     <x-input-error :messages="$errors->get('image')" class="mt-2"/>
 
                 </div>
+
+            </div>
+            <div class="flex w-full mt-4 space-x-4">
                 <div class="w-1/4">
                     <x-input-label for="image" :value="__('Knowledge Areas')"/>
                     <ul class="mt-2">
                         @foreach($knowledge_areas as $area)
-                            <li>
-                                <x-checkbox label="{{$area->description}}" wire:model="item1" name="areas[]"
-                                            value="{{Str::snake($area->id)}}"/>
-
-                                {{--                                <label for="{{Str::snake($area->description)}}" class="inline-flex items-center">--}}
-                                {{--                                    <input id="{{Str::snake($area->description)}}" value="{{Str::snake($area->id)}}"--}}
-                                {{--                                           name="areas[]" type="checkbox"--}}
-                                {{--                                           class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">--}}
-                                {{--                                    <span class="ms-2 text-sm text-purple-900">{{$area->description}}</span>--}}
-                                {{--                                </label>--}}
-                            </li>
-                    @endforeach
+                            <x-checkbox label="{{$area->description}}" wire:model="item1" name="areas[]"
+                                        value="{{Str::snake($area->id)}}"/>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="w-1/4">
+                    <x-input-label for="image" :value="__('Professors')"/>
+                    <ul class="mt-2">
+                        @foreach($professors as $professor)
+                            <x-checkbox label="{{$professor->name}}" wire:model="item1" name="professors[]"
+                                        value="{{$professor->id}}"/>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
             </ul>

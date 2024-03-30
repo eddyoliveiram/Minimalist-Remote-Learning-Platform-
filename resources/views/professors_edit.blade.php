@@ -18,14 +18,6 @@
                         <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                     </div>
                 </div>
-                <div class="w-1/4">
-                    <div>
-                        <x-input-label for="registration" :value="__('Registration')"/>
-                        <x-text-input id="registration" class="block mt-1 w-full" type="number" name="registration"
-                                      :value="$professor->registration"></x-text-input>
-                        <x-input-error :messages="$errors->get('registration')" class="mt-2"/>
-                    </div>
-                </div>
             </div>
 
             <div class="flex w-full mt-4 space-x-4">

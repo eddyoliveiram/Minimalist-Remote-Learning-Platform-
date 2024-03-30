@@ -82,6 +82,8 @@
                     <x-input-error :messages="$errors->get('image')" class="mt-2"/>
 
                 </div>
+            </div>
+            <div class="flex w-full mt-4 space-x-4">
                 <div class="w-1/4">
                     <x-input-label for="image" :value="__('Knowledge Areas')"/>
                     <ul class="mt-2">
@@ -95,6 +97,25 @@
                                                checked
                                         @endif>
                                     <span class="ml-2 text-sm text-gray-600">{{ $area->description }}</span>
+                                </label>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="w-1/4">
+                    <x-input-label for="image" :value="__('Professors')"/>
+                    <ul class="mt-2">
+                        @foreach($professors as $professor)
+                            <li>
+                                <label for="professor_{{ $professor->id }}" class="inline-flex items-center">
+                                    <input id="professor_{{ $professor->id }}" value="{{ $professor->id }}"
+                                           name="professors[]"
+                                           type="checkbox"
+                                           class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                           @if($course->professors->contains($professor->id))
+                                               checked
+                                        @endif>
+                                    <span class="ml-2 text-sm text-gray-600">{{ $professor->name }}</span>
                                 </label>
                             </li>
                         @endforeach

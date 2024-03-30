@@ -30,6 +30,7 @@ class StoreCourseRequest extends FormRequest
             'vacancies' => ['required'],
             'image' => ['nullable'],
             'areas' => ['nullable'],
+            'professors' => ['nullable'],
         ];
     }
 }

@@ -18,7 +18,7 @@ class ProfessorFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'registration' => fake()->unique()->numberBetween('100000', '999999'),
+            'registration' => 'PR'.time().rand(1000, 9999)
         ];
     }
 }

@@ -18,7 +18,7 @@ class StudentFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'registration' => 'SR'.fake()->unique()->numberBetween('100000', '999999'),
+            'registration' => 'SR'.time().rand(1000, 9999),
             'email' => fake()->email(),
             'phone' => fake()->phoneNumber
         ];

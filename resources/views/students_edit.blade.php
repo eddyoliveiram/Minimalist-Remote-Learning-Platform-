@@ -21,10 +21,10 @@
                 </div>
                 <div class="w-1/4">
                     <div>
-                        <x-input-label for="registration" :value="__('Registration')"/>
-                        <x-text-input id="registration" class="block mt-1 w-full" type="text" name="registration"
-                                      :value="$student->registration"></x-text-input>
-                        <x-input-error :messages="$errors->get('registration')" class="mt-2"/>
+                        <x-input-label for="phone" :value="__('Phone')"/>
+                        <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone"
+                                      :value="$student->phone"></x-text-input>
+                        <x-input-error :messages="$errors->get('phone')" class="mt-2"/>
                     </div>
                 </div>
             </div>
@@ -37,14 +37,7 @@
                         <x-input-error :messages="$errors->get('email')" class="mt-2"/>
                     </div>
                 </div>
-                <div class="w-1/4">
-                    <div>
-                        <x-input-label for="phone" :value="__('Phone')"/>
-                        <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone"
-                                      :value="$student->phone"></x-text-input>
-                        <x-input-error :messages="$errors->get('phone')" class="mt-2"/>
-                    </div>
-                </div>
+
             </div>
 
             <div class="flex w-full mt-4 space-x-2">

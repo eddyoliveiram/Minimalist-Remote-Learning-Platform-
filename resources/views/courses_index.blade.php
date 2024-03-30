@@ -86,6 +86,7 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                             {{--                            <x-modal-list-people :title="__('Professors')" :array="$course->professors"/>--}}
                             <livewire:modal-component type="professors" :data="$course"/>
+
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                             <livewire:modal-component type="students" :data="$course"/>

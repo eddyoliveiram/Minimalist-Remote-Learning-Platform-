@@ -22,8 +22,7 @@ class StoreProfessorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
-            'registration' => ['required'],
+            'name' => ['required', 'string', 'max:255']
         ];
     }
 }

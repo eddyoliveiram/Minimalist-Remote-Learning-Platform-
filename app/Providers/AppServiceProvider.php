@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Course;
+use App\Models\Professor;
+use App\Models\Student;
 use App\Observers\CourseObserver;
+use App\Observers\ProfessorObserver;
+use App\Observers\StudentObserver;
 use App\Repositories\ContentRepository;
 use App\Repositories\CourseRepository;
 use App\Services\CourseService;
@@ -34,5 +38,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Course::observe(CourseObserver::class);
+        Student::observe(StudentObserver::class);
+        Professor::observe(ProfessorObserver::class);
     }
 }
