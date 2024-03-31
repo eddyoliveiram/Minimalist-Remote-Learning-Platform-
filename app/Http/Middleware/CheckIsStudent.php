@@ -15,7 +15,7 @@ class CheckIsStudent
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (auth()->user()->user_type !== 'student') {
+        if (!auth()->check() || auth()->user()->user_type !== 'student') {
             return redirect('/');
         }
         return $next($request);

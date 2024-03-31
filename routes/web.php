@@ -36,13 +36,24 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('courses', CoursesController::class);
-    Route::resource('professors', ProfessorsController::class);
-    Route::resource('students', StudentsController::class);
-    Route::resource('modules', ModulesController::class);
-    Route::resource('contents', ContentsController::class);
-    Route::resource('questions', QuestionsController::class);
-    Route::resource('alternatives', AlternativesController::class);
+
+    Route::middleware(['isAdmin'])->group(function () {
+        Route::resource('professors', ProfessorsController::class);
+        Route::resource('students', StudentsController::class);
+        Route::resource('courses', CoursesController::class);
+        Route::resource('modules', ModulesController::class);
+        Route::resource('contents', ContentsController::class);
+        Route::resource('questions', QuestionsController::class);
+        Route::resource('alternatives', AlternativesController::class);
+    });
+    Route::middleware(['isProfessor'])->group(function () {
+        Route::resource('courses', CoursesController::class);
+        Route::resource('modules', ModulesController::class);
+        Route::resource('contents', ContentsController::class);
+        Route::resource('questions', QuestionsController::class);
+        Route::resource('alternatives', AlternativesController::class);
+    });
+
 
     Route::get('/api/courses/{status?}', [CoursesController::class, 'apiCourses'])->name('api.courses');
 });
