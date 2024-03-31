@@ -57,7 +57,7 @@
                 @forelse($contents as $c => $content)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{$content->position.'º'}}
+                            {{($content->position) ? $content->position.'º' : ' - '}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {{ucfirst($content->type)}}
