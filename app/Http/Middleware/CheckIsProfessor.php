@@ -16,7 +16,8 @@ class CheckIsProfessor
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth()->check() || auth()->user()->user_type !== 'professor') {
-            return redirect('/');
+            return redirect()->route('courses.index')->with('error',
+                'Você não tem permissão para acessar esta página.');
         }
         return $next($request);
     }

@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckIsAdmin
+class CheckIsAdminOrProfessor
 {
     /**
      * Handle an incoming request.
@@ -15,7 +15,7 @@ class CheckIsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!auth()->check() || (auth()->user()->user_type !== 'admin')) {
+        if (!auth()->check() || (auth()->user()->user_type !== 'admin' && auth()->user()->user_type !== 'professor')) {
             return redirect()->route('courses.index')->with('error',
                 'Você não tem permissão para acessar esta página.');
         }

@@ -1,10 +1,12 @@
 <x-app-layout>
-    {{--    <textarea></textarea>--}}
-    {{--    <script>--}}
-    {{--        const easyMDE = new EasyMDE();--}}
-    {{--    </script>--}}
-    {{--    @livewire('text-markdown-component')--}}
-    {{--    <x-editor wire:model="text" label="Description" hint="The full product description"/>--}}
+    @if(session('error'))
+        <div x-data="{ show: true }"
+             x-init="setTimeout(() => show = false, 3000)"
+             x-show="show"
+             class="bg-red-500 p-4 rounded-xl text-white mb-2">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <x-card title="Courses List" subtitle="Showing All Courses" shadow separator>
         <div class="flex justify-between items-center mb-2 gap-4">

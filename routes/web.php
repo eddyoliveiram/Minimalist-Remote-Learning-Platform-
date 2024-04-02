@@ -31,27 +31,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/teste', function () {
+    return view('welcome');
+});
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::resource('courses', CoursesController::class);
 
-    Route::middleware(['isAdmin'])->group(function () {
-        Route::resource('professors', ProfessorsController::class);
-        Route::resource('students', StudentsController::class);
-        Route::resource('courses', CoursesController::class);
+    Route::middleware(['isAdminOrProfessor'])->group(function () {
         Route::resource('modules', ModulesController::class);
         Route::resource('contents', ContentsController::class);
         Route::resource('questions', QuestionsController::class);
         Route::resource('alternatives', AlternativesController::class);
     });
-    Route::middleware(['isProfessor'])->group(function () {
-        Route::resource('courses', CoursesController::class);
-        Route::resource('modules', ModulesController::class);
-        Route::resource('contents', ContentsController::class);
-        Route::resource('questions', QuestionsController::class);
-        Route::resource('alternatives', AlternativesController::class);
+
+    Route::middleware(['isAdmin'])->group(function () {
+        Route::resource('students', StudentsController::class);
+        Route::resource('professors', ProfessorsController::class);
+    });
+
+    Route::middleware(['isStudent'])->group(function () {
     });
 
 

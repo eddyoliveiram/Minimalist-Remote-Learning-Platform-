@@ -19,6 +19,13 @@ class UserSeeder extends Seeder
             'user_type' => 'admin'
         ]);
 
-        User::factory(9)->create();
+        User::factory()->create([
+            'name' => 'Professor',
+            'password' => '123',
+            'email' => 'professor@gmail.com',
+            'user_type' => 'professor'
+        ]);
+
+        User::factory(8)->create();
     }
 }
