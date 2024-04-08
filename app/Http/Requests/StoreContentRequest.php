@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ContentTypeRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreContentRequest extends FormRequest
@@ -29,16 +30,22 @@ class StoreContentRequest extends FormRequest
             'position' => 'nullable|integer',
         ];
 
-        if ($this->type === 'image') {
-            $rules['file_uploaded'] = 'required|file|mimes:jpeg,png,gif';
-        } elseif ($this->type === 'document') {
-            $rules['file_uploaded'] = 'required|file|mimes:doc,docx,xlsx,xls,pdf';
-        } elseif ($this->type === 'article') {
-            $rules['text_typed'] = 'required|string|min:1';
-        } elseif ($this->type === 'video') {
-            $rules['video_url'] = 'required|url';
-        }
+        $type = $this->type;
 
+        switch ($type) {
+            case 'image':
+                $rules['file_uploaded'] = ['required', 'file', new ContentTypeRule($type)];
+                break;
+            case 'document':
+                $rules['file_uploaded'] = ['required', 'file', new ContentTypeRule($type)];
+                break;
+            case 'article':
+                $rules['text_typed'] = ['required', new ContentTypeRule($type)];
+                break;
+            case 'video':
+                $rules['video_url'] = ['required', new ContentTypeRule($type)];
+                break;
+        }
 
         return $rules;
     }
