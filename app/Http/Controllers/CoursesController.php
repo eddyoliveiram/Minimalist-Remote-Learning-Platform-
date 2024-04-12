@@ -25,7 +25,9 @@ class CoursesController extends Controller
 
     public function index(Request $request): View
     {
-        $courses = $this->courseRepository->search($request->input('search'));
+        $courses = $this->courseRepository->search(
+            $request->input('search'), auth()->user()
+        );
         return view('courses_index', compact('courses'));
     }
 

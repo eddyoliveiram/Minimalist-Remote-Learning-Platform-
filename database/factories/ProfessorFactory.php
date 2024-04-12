@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,8 @@ class ProfessorFactory extends Factory
     {
         return [
             'name' => fake()->name(),
-            'registration' => 'PR'.time().rand(1000, 9999)
+            'registration' => 'PR'.time().rand(1000, 9999),
+            'user_id' => User::factory()
         ];
     }
 }

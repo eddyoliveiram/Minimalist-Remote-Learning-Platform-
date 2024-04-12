@@ -18,7 +18,7 @@ class CourseProfessorSeeder extends Seeder
 
         $courses->each(function ($course) use ($professorIds) {
             $course->professors()->attach(
-                $professorIds->random(rand(1, 3))->toArray()
+                $professorIds->random(rand(1, 5))->toArray()
             );
         });
     }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Professor;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -19,13 +20,13 @@ class UserSeeder extends Seeder
             'user_type' => 'admin'
         ]);
 
-        User::factory()->create([
-            'name' => 'Professor',
-            'password' => '123',
-            'email' => 'professor@gmail.com',
-            'user_type' => 'professor'
-        ]);
-
-        User::factory(8)->create();
+        Professor::factory(10)->create()->each(function ($professor) {
+            $user = User::factory()->create([
+                'user_type' => 'professor',
+                'password' => '123'
+            ]);
+            $professor->update(['user_id' => $user->id]);
+        });
+//        User::factory(8)->create();
     }
 }

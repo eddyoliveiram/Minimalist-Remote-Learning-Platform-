@@ -3,14 +3,22 @@
 namespace App\Repositories;
 
 use App\Models\Course;
+use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 
 class CourseRepository
 {
-    public function search($term): LengthAwarePaginator
+    public function search($term, User $user): LengthAwarePaginator
     {
         $query = Course::with(['students', 'professors', 'modules']);
+
+        if ($user->user_type != 'admin') {
+            $query->whereHas('professors', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+                \Log::info('Query Professors for User ID: '.$user->id);
+            });
+        }
 
         if ($term) {
             $query->where(function ($query) use ($term) {
@@ -19,6 +27,9 @@ class CourseRepository
             });
         }
 
-        return $query->paginate(5);
+        $result = $query->paginate(5);
+        \Log::info('Query Result: ', ['result' => $result]);
+        return $result;
     }
+
 }

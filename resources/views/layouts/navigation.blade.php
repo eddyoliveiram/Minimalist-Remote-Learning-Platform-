@@ -34,8 +34,10 @@
                 <x-menu-separator/>
             @endif
             <x-menu-item title="Courses" icon="phosphor.read.cv.logo.fill" link="/courses"/>
-            <x-menu-item title="Professors" icon="phosphor.chalkboard.teacher" link="/professors"/>
-            <x-menu-item title="Students" icon="phosphor.student.fill" link="/students"/>
+            @if(auth()->check() && auth()->user()->user_type === 'admin')
+                <x-menu-item title="Professors" icon="phosphor.chalkboard.teacher" link="/professors"/>
+                <x-menu-item title="Students" icon="phosphor.student.fill" link="/students"/>
+            @endif
             {{--            <x-menu-sub title="Settings" icon="o-cog-6-tooth">--}}
             {{--                <x-menu-item title="Wifi" icon="o-wifi" link="####"/>--}}
             {{--                <x-menu-item title="Archives" icon="o-archive-box" link="####"/>--}}
