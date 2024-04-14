@@ -18,7 +18,6 @@ class ProfessorFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
             'registration' => 'PR'.time().rand(1000, 9999),
             'user_id' => User::factory()
         ];

@@ -34,7 +34,12 @@ class CoursesController extends Controller
     public function create(): View
     {
         $knowledge_areas = KnowledgeArea::all();
-        $professors = Professor::all();
+        $query = Professor::with([
+            'user' => function ($query) {
+                $query->where('user_type', 'professor');
+            }
+        ]);
+        $professors = $query->get();
         return view('courses_create', compact('knowledge_areas', 'professors'));
     }
 

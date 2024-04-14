@@ -54,7 +54,7 @@
                 @foreach($professors as $professor)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{$professor->name}}
+                            {{$professor->user->name}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                             {{$professor->registration}}

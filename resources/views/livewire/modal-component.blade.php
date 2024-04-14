@@ -12,7 +12,7 @@
                 <div class="mt-2">
                     <ul>
                         @forelse ($data as $p)
-                            <li>{{ $p->name }}</li>
+                            <li>{{ ($p->user->name) ?? $p->name }}</li>
                         @empty
                             <li>- Nobody so far -</li>
                         @endforelse

@@ -43,7 +43,8 @@ class ProfessorsController extends Controller
 
     public function edit(Professor $professor): View
     {
-        return view('professors_edit', compact('professor'));
+//        return view('professors_edit', compact('professor'));
+        return view();
     }
 
     public function update(StoreProfessorRequest $request, Professor $professor): RedirectResponse

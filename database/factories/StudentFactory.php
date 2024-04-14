@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,10 +18,11 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'registration' => 'SR'.time().rand(1000, 9999),
+            'name' => 'fix it later',
+            'registration' => 'SR'.uniqid('', true),
             'email' => fake()->email(),
-            'phone' => fake()->phoneNumber
+            'phone' => fake()->phoneNumber,
+            'user_id' => User::factory()
         ];
     }
 }

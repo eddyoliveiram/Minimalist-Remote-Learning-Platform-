@@ -23,14 +23,24 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $prefix = $this->faker->optional()->randomElement(['Prof.', 'Std.']); // Optional prefix
         return [
-            'name' => fake()->name(),
+            'name' => $prefix.' '.fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
             'user_type' => fake()->randomElement(['student'])
         ];
+    }
+
+    public function withPrefix(string $prefix): Factory
+    {
+        return $this->state(function (array $attributes) use ($prefix) {
+            return [
+                'name' => $prefix.' '.$attributes['name'],
+            ];
+        });
     }
 
     /**

@@ -8,10 +8,16 @@ class ProfessorRepository
 {
     public function search($term)
     {
-        $query = Professor::query();
+        $query = Professor::with([
+            'user' => function ($query) {
+                $query->where('user_type', 'professor');
+            }
+        ]);
+
         if ($term) {
-            $query->where('name', 'LIKE', "%{$term}%")
-                ->orWhere('registration', 'LIKE', "%{$term}%");
+            $query->whereHas('user', function ($q) use ($term) {
+                $q->where('name', 'LIKE', "%{$term}%");
+            });
         }
         return $query->paginate(5);
     }
