@@ -11,7 +11,7 @@ class CourseRepository
 {
     public function search($term, User $user): LengthAwarePaginator
     {
-        $query = Course::with(['students', 'professors.user', 'modules']);
+        $query = Course::with(['students.user', 'professors.user', 'modules']);
 
         if ($user->user_type != 'admin') {
             $query->whereHas('professors', function ($query) use ($user) {

@@ -10,13 +10,11 @@ class StudentSeeder extends Seeder
 {
     public function run(): void
     {
-        Student::factory(10)->create()->each(function ($student) {
-            $user = User::factory()->withPrefix('Std.')->create([
-                'user_type' => 'student',
-                'password' => '123'
+        for ($i = 0; $i < 10; $i++) {
+            $user = User::factory()->asStudent()->create();
+            Student::factory()->create([
+                'user_id' => $user->id
             ]);
-
-            $student->update(['user_id' => $user->id]);
-        });
+        }
     }
 }

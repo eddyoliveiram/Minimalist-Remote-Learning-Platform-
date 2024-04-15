@@ -13,13 +13,11 @@ class ProfessorSeeder extends Seeder
      */
     public function run(): void
     {
-        Professor::factory(10)->create()->each(function ($professor) {
-            $user = User::factory()->withPrefix('Prof.')->create([
-                'user_type' => 'professor',
-                'password' => '123'
+        for ($i = 0; $i < 10; $i++) {
+            $user = User::factory()->asProfessor()->create();
+            Professor::factory()->create([
+                'user_id' => $user->id
             ]);
-
-            $professor->update(['user_id' => $user->id]);
-        });
+        }
     }
 }

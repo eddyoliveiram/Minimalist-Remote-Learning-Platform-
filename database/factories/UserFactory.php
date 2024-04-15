@@ -23,24 +23,36 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $prefix = $this->faker->optional()->randomElement(['Prof.', 'Std.']); // Optional prefix
         return [
-            'name' => $prefix.' '.fake()->name(),
+            'name' => fake()->name(),  // Start with a basic name
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
+            'password' => Hash::make('password'),  // Default password hashed
             'remember_token' => Str::random(10),
-            'user_type' => fake()->randomElement(['student'])
+            'user_type' => 'default',
         ];
     }
 
-    public function withPrefix(string $prefix): Factory
+    /**
+     * Configure the factory to create a student user.
+     */
+    public function asStudent(): Factory
     {
-        return $this->state(function (array $attributes) use ($prefix) {
-            return [
-                'name' => $prefix.' '.$attributes['name'],
-            ];
-        });
+        return $this->state([
+            'user_type' => 'student',
+            'name' => 'Std. '.fake()->name(),  // Prefix for students
+        ]);
+    }
+
+    /**
+     * Configure the factory to create a professor user.
+     */
+    public function asProfessor(): Factory
+    {
+        return $this->state([
+            'user_type' => 'professor',
+            'name' => 'Prof. '.fake()->name(),  // Prefix for professors
+        ]);
     }
 
     /**

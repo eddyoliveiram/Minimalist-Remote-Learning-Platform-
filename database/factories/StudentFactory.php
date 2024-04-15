@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,11 +17,9 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'fix it later',
             'registration' => 'SR'.uniqid('', true),
             'email' => fake()->email(),
-            'phone' => fake()->phoneNumber,
-            'user_id' => User::factory()
+            'phone' => fake()->phoneNumber
         ];
     }
 }
