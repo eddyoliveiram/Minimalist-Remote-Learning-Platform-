@@ -16,7 +16,7 @@
                     <i class="fas fa-plus-circle"></i> &nbsp;New
                 </a>
             </div>
-            <form action="{{route('courses.index')}}" method="GET" class="flex">
+            <form action="{{route('student.dashboard')}}" method="GET" class="flex">
                 <input type="text" name="search" placeholder="Any column..."
                        class="rounded-l-lg p-2 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white">
                 <button type="submit"
