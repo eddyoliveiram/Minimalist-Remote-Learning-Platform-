@@ -8,10 +8,8 @@ use App\Models\Student;
 use App\Observers\CourseObserver;
 use App\Observers\ProfessorObserver;
 use App\Observers\StudentObserver;
-use App\Repositories\ContentRepository;
 use App\Repositories\CourseRepository;
 use App\Services\CourseService;
-use App\Services\Interfaces\ContentRepositoryInterface;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,8 +27,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CourseRepository::class, function () {
             return new CourseRepository();
         });
-
-        $this->app->bind(ContentRepositoryInterface::class, ContentRepository::class);
     }
 
     /**

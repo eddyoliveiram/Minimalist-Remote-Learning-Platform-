@@ -7,18 +7,11 @@ use App\Models\Course;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CourseRepository implements CourseRepositoryInterface
+class StudentCourseRepository implements CourseRepositoryInterface
 {
     public function search($term, User $user): LengthAwarePaginator
     {
         $query = Course::with(['students.user', 'professors.user', 'modules']);
-
-        if ($user->user_type != 'admin') {
-            $query->whereHas('professors', function ($query) use ($user) {
-                $query->where('user_id', $user->id);
-                \Log::info('Query Professors for User ID: '.$user->id);
-            });
-        }
 
         if ($term) {
             $query->where(function ($query) use ($term) {
@@ -31,6 +24,4 @@ class CourseRepository implements CourseRepositoryInterface
         \Log::info('Query Result: ', ['result' => $result]);
         return $result;
     }
-    
-
 }

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Contracts\CourseRepositoryInterface;
 use App\Http\Requests\StoreCourseRequest;
 use App\Models\Course;
 use App\Models\CourseStatus;
 use App\Models\KnowledgeArea;
 use App\Models\Professor;
-use App\Repositories\CourseRepository;
 use App\Services\CourseService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class CoursesController extends Controller
 {
     public function __construct(
         protected CourseService $courseService,
-        protected CourseRepository $courseRepository
+        protected CourseRepositoryInterface $courseRepository
     ) {
     }
 

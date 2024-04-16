@@ -32,10 +32,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/teste', function () {
-    return view('welcome');
-});
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -43,7 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
 
-    Route::middleware(['isAdminOrProfessor'])->group(function () {
+    Route::middleware(['auth', 'isAdminOrProfessor'])->group(function () {
         Route::resource('courses', CoursesController::class);
         Route::resource('modules', ModulesController::class);
         Route::resource('contents', ContentsController::class);
