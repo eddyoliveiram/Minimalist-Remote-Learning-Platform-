@@ -12,6 +12,7 @@ use App\Repositories\ContentRepository;
 use App\Repositories\CourseRepository;
 use App\Services\CourseService;
 use App\Services\Interfaces\ContentRepositoryInterface;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -40,5 +41,9 @@ class AppServiceProvider extends ServiceProvider
         Course::observe(CourseObserver::class);
         Student::observe(StudentObserver::class);
         Professor::observe(ProfessorObserver::class);
+
+        Blade::if('AdminOrProf', function () {
+            return auth()->check() && (auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'professor');
+        });
     }
 }

@@ -115,7 +115,7 @@
                                            @if($course->professors->contains($professor->id))
                                                checked
                                         @endif>
-                                    <span class="ml-2 text-sm text-gray-600">{{ $professor->name }}</span>
+                                    <span class="ml-2 text-sm text-gray-600">{{ $professor->user->name }}</span>
                                 </label>
                             </li>
                         @endforeach

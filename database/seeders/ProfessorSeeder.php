@@ -14,7 +14,9 @@ class ProfessorSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 10; $i++) {
-            $user = User::factory()->asProfessor()->create();
+            $user = User::factory()->asProfessor()->create([
+                'password' => '123'
+            ]);
             Professor::factory()->create([
                 'user_id' => $user->id
             ]);

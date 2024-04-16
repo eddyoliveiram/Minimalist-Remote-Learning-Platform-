@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfessorsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QuestionsController;
 use App\Http\Controllers\StudentsController;
+use App\Http\Controllers\StudentViewController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -41,9 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('courses', CoursesController::class);
 
     Route::middleware(['isAdminOrProfessor'])->group(function () {
+        Route::resource('courses', CoursesController::class);
         Route::resource('modules', ModulesController::class);
         Route::resource('contents', ContentsController::class);
         Route::resource('questions', QuestionsController::class);
@@ -56,6 +57,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['isStudent'])->group(function () {
+        Route::get('/student/dashboard', [StudentViewController::class, 'index'])->name('student.dashboard');
     });
 
 
