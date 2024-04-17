@@ -7,13 +7,34 @@
                     {{ session('success') }}
                 </x-div-message>
             @endif
+            @if($errors->any())
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-5 rounded shadow-md"
+                     x-data="{ show: true }"
+                     x-init="setTimeout(() => show = false, 3000)"
+                     x-show="show">
+                    @foreach($errors->all() as $message)
+                        <x-input-error :messages="$message" class="mt-2"/>
+                    @endforeach
+                </div>
+            @endif
+
             <div class="flex w-full space-x-4">
                 <div class="w-1/4">
                     <div>
-
                         <x-input label="Name" placeholder="Your name" icon="o-user" name="name"
                                  value="{{old('name')}}"/>
-                        <x-input-error :messages="$errors->get('name')" class="mt-2"/>
+                    </div>
+                </div>
+                <div class="w-1/4">
+                    <div>
+                        <x-input label="Email" placeholder="Your email" name="email" type="email"
+                                 value="{{old('email')}}"/>
+                    </div>
+                </div>
+                <div class="w-1/4">
+                    <div>
+                        <x-input label="Password" placeholder="Password" name="password" type="password"
+                                 value="{{old('password')}}"/>
                     </div>
                 </div>
             </div>

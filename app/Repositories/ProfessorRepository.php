@@ -21,4 +21,14 @@ class ProfessorRepository
         }
         return $query->paginate(5);
     }
+
+    public function createProfessor(int $userId): Professor
+    {
+        return Professor::create(['user_id' => $userId]);
+    }
+
+    public function deleteProfessor(Professor $professor): bool
+    {
+        return $professor->delete();
+    }
 }

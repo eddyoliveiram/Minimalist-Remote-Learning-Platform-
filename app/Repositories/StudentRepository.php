@@ -8,13 +8,22 @@ class StudentRepository
 {
     public function search($term)
     {
-        $query = Student::query();
+        $query = Student::with([
+            'user' => function ($filter) {
+                $filter->where('user_type', 'student');
+            }
+        ]);
+
+
         if ($term) {
-            $query->where('name', 'LIKE', "%{$term}%")
-                ->orWhere('registration', 'LIKE', "%{$term}%")
-                ->orWhere('email', 'LIKE', "%{$term}%")
-                ->orWhere('phone', 'LIKE', "%{$term}%");
+            $query->whereHas('user', function ($q) use ($term) {
+                $q->where('name', 'LIKE', "%{$term}%")
+                    ->orWhere('email', 'LIKE', "%{$term}%")
+                    ->orWhere('phone', 'LIKE', "%{$term}%");
+            });
         }
+
+//        dd($query->get());
         return $query->paginate(5);
     }
 }

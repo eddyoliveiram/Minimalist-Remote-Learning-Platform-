@@ -62,7 +62,7 @@
                 @foreach($students as $student)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{$student->name}}
+                            {{$student->user->name}}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                             {{$student->registration}}

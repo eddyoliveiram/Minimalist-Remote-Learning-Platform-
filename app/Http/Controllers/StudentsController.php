@@ -12,11 +12,8 @@ use Illuminate\View\View;
 class StudentsController extends Controller
 {
 
-    public StudentRepository $studentRepository;
-
-    public function __construct(StudentRepository $studentRepository)
+    public function __construct(public StudentRepository $studentRepository)
     {
-        $this->studentRepository = $studentRepository;
     }
 
     /**
@@ -25,6 +22,7 @@ class StudentsController extends Controller
     public function index(Request $request): view
     {
         $students = $this->studentRepository->search($request->input('search'));
+
         return view('students_index', compact('students'));
     }
 

@@ -21,8 +21,18 @@ class StoreProfessorRequest extends FormRequest
      */
     public function rules(): array
     {
+        $userId = optional(optional($this->route('professor'))->user)->id;
+
         return [
-            'name' => ['required', 'string', 'max:255']
+            'name' => ['required', 'string', 'max:255'],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users,email'.($userId ? ','.$userId : '')
+            ],
+            'password' => ['required', 'string', 'min:8']
         ];
     }
 }
