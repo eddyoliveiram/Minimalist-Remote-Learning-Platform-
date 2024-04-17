@@ -53,9 +53,8 @@ class ProfessorsController extends Controller
 
     public function update(StoreProfessorRequest $request, Professor $professor): RedirectResponse
     {
-//        $professor->update($request->validated());
-//        return redirect()->back()->with('success', 'Professor updated successfully.');
         $result = $this->professorService->update($request->validated(), $professor->user);
+
         if ($result['success']) {
             return redirect()->back()->with('success', $result['message']);
         } else {
