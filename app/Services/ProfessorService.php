@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DataTransferObject\ProfessorDTO;
 use App\Models\Professor;
 use App\Models\User;
 use App\Repositories\ProfessorRepository;
@@ -50,13 +51,15 @@ class ProfessorService
 
     public function update(array $data, User $user)
     {
+        $dto = new ProfessorDTO($data);
+
         DB::beginTransaction();
         try {
-            if (substr($data['name'], 0, 6) !== 'Prof. ') {
-                $data['name'] = 'Prof. '.$data['name'];
-            }
-            $data['password'] = '123';
-            $user->update($data);
+            $user->update([
+                'name' => $dto->name,
+                'email' => $dto->email,
+                'password' => $dto->password
+            ]);
             DB::commit();
             return ['success' => true, 'message' => 'Professor updated successfully.'];
         } catch (\Exception $e) {
