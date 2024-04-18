@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Policies;
 
 use App\Models\Course;
@@ -21,6 +23,16 @@ class CoursePolicy
 
     public function view(User $user, Course $course)
     {
-        return $user->is_admin || $user->courses->contains($course->id);
+        if ($user->is_admin) {
+            return true;
+        }
+
+        $user->loadMissing('professor.courses');
+
+        if ($user->professor && $user->professor->courses->contains($course)) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -43,7 +43,7 @@
                 <x-button type="submit" class="bg-purple-700 text-white hover:bg-purple-900">
                     <i class="fas fa-save text-white"></i>&nbsp;Save
                 </x-button>
-                <x-button onclick="history.back()">
+                <x-button onclick="window.location='{{ route('professors.index') }}'">
                     <i class=" fas fa-circle-arrow-left"></i>&nbsp;Back
                 </x-button>
             </div>

@@ -22,6 +22,8 @@ class ModulesController extends Controller
     public function index(Request $request): View
     {
         $course = Course::findOrFail($request->input('course_id'));
+
+        $this->authorize('view', $course);
         $modules = $this->moduleRepository->search($request->input('search'), $request->input('course_id'));
         return view('modules_index', compact('course', 'modules'));
     }

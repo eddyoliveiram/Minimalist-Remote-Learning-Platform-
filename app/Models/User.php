@@ -46,11 +46,22 @@ class User extends Authenticatable
 
     public function professor()
     {
-        return $this->hasOne(Professor::class)->where('user_type', 'professor');
+        return $this->hasOne(Professor::class);
     }
 
     public function student()
     {
-        return $this->hasOne(Student::class)->where('user_type', 'student');
+        return $this->hasOne(Student::class);
     }
+
+    public function isProfessor()
+    {
+        return $this->user_type === 'professor';
+    }
+    
+    public function isStudent()
+    {
+        return $this->user_type === 'student';
+    }
+
 }
