@@ -56,7 +56,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['isStudent'])->group(function () {
-        Route::get('/student/dashboard', [StudentViewController::class, 'index'])->name('student.dashboard');
+        Route::get('/student/courses-list', [StudentViewController::class, 'index'])->name('student.courses-list');
     });
 
 

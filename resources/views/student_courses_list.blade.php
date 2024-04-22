@@ -9,15 +9,12 @@
         </div>
     @endif
 
-    <x-card title="Welcome" subtitle="" shadow separator>
+    <x-card title="Courses List" subtitle="" shadow separator>
         <div class="flex justify-between items-center mb-2 gap-4">
             <div>
-                <a href=""
-                   class="w-20 p-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
-                    <i class="fas fa-plus-circle"></i> &nbsp;New
-                </a>
+
             </div>
-            <form action="{{route('student.dashboard')}}" method="GET" class="flex">
+            <form action="{{route('student.courses-list')}}" method="GET" class="flex">
                 <input type="text" name="search" placeholder="Any column..."
                        class="rounded-l-lg p-2 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white">
                 <button type="submit"
@@ -86,7 +83,11 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            Create Buttons Here
+
+                            <a href=""
+                               class="w-30 px-2 py-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
+                                <i class="fas fa-plus-circle"></i> &nbsp;Sing Up
+                            </a>
                             {{--                            <x-button icon="o-edit" wire:click="" spinner class="btn-sm"/>--}}
                             {{--                            <x-edit-delete-actions :id="$course->id" :route="__('courses')"--}}
                             {{--                                                   :singular="__('course')"/>--}}

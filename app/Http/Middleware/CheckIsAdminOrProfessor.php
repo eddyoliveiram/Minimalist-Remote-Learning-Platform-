@@ -16,8 +16,7 @@ class CheckIsAdminOrProfessor
     public function handle(Request $request, Closure $next): Response
     {
         if (!auth()->check() || (auth()->user()->user_type !== 'admin' && auth()->user()->user_type !== 'professor')) {
-            return redirect()->route('student.dashboard')->with('error',
-                'Você não tem permissão para acessar esta página.');
+            abort(403);
         }
         return $next($request);
     }

@@ -21,7 +21,6 @@ class StudentCourseRepository implements CourseRepositoryInterface
         }
 
         $result = $query->paginate(5);
-        \Log::info('Query Result: ', ['result' => $result]);
         return $result;
     }
 }

@@ -18,6 +18,6 @@ class StudentViewController extends Controller
         $courses = $this->courseRepository->search(
             $request->input('search'), auth()->user()
         );
-        return view('student_dashboard', compact('courses'));
+        return view('student_courses_list', compact('courses'));
     }
 }

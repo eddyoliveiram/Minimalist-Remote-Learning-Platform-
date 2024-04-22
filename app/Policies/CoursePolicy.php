@@ -23,7 +23,7 @@ class CoursePolicy
 
     public function view(User $user, Course $course)
     {
-        if ($user->is_admin) {
+        if ($user->user_type === 'admin') {
             return true;
         }
 
