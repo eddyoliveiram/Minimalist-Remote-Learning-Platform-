@@ -41,5 +41,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('AdminOrProf', function () {
             return auth()->check() && (auth()->user()->user_type === 'admin' || auth()->user()->user_type === 'professor');
         });
+        Blade::if('IsStudent', function () {
+            return auth()->check() && (auth()->user()->user_type === 'student');
+        });
     }
 }

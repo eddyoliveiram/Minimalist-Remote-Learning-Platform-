@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Contracts\CourseRepositoryInterface;
+use App\Contracts\StudentCourseRepositoryInterface;
 use App\Http\Controllers\CoursesController;
 use App\Http\Controllers\StudentViewController;
 use App\Repositories\ContentRepository;
@@ -31,7 +32,7 @@ class RepositoryServiceProvider extends ServiceProvider
             ->give(CourseRepository::class);
 
         $this->app->when(StudentViewController::class)
-            ->needs(CourseRepositoryInterface::class)
+            ->needs(StudentCourseRepositoryInterface::class)
             ->give(StudentCourseRepository::class);
     }
 }

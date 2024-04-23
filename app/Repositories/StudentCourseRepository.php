@@ -2,16 +2,19 @@
 
 namespace App\Repositories;
 
-use App\Contracts\CourseRepositoryInterface;
+use App\Contracts\StudentCourseRepositoryInterface;
 use App\Models\Course;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class StudentCourseRepository implements CourseRepositoryInterface
+class StudentCourseRepository implements StudentCourseRepositoryInterface
 {
-    public function search($term, User $user): LengthAwarePaginator
+    public function searchUnenrolled($term, User $user): LengthAwarePaginator
     {
-        $query = Course::with(['students.user', 'professors.user', 'modules']);
+        $query = Course::with(['students.user', 'professors.user', 'modules'])
+            ->whereDoesntHave('students', function ($query) use ($user) {
+                $query->where('students.id', $user->student->id);
+            });
 
         if ($term) {
             $query->where(function ($query) use ($term) {
@@ -23,4 +26,21 @@ class StudentCourseRepository implements CourseRepositoryInterface
         $result = $query->paginate(5);
         return $result;
     }
+
+    public function searchEnrolled($term, User $user): LengthAwarePaginator
+    {
+        $query = Course::whereHas('students', function ($query) use ($user) {
+            $query->where('students.id', $user->id);
+        });
+
+        if ($term) {
+            $query->where(function ($query) use ($term) {
+                $query->where('name', 'LIKE', "%{$term}%")
+                    ->orWhere('duration', 'LIKE', "%{$term}%");
+            });
+        }
+
+        return $query->paginate(5);
+    }
+
 }

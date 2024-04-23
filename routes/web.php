@@ -56,7 +56,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware(['isStudent'])->group(function () {
-        Route::get('/student/courses-list', [StudentViewController::class, 'index'])->name('student.courses-list');
+        Route::get('student/courses-list', [StudentViewController::class, 'index'])->name('student.courses-list');
+        Route::post('courses/{course}/enroll',
+            [StudentViewController::class, 'enrollStudent'])->name('courses.enroll_student');
     });
 
 

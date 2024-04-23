@@ -83,14 +83,13 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-
-                            <a href=""
-                               class="w-30 px-2 py-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
-                                <i class="fas fa-plus-circle"></i> &nbsp;Sing Up
-                            </a>
-                            {{--                            <x-button icon="o-edit" wire:click="" spinner class="btn-sm"/>--}}
-                            {{--                            <x-edit-delete-actions :id="$course->id" :route="__('courses')"--}}
-                            {{--                                                   :singular="__('course')"/>--}}
+                            <form action="{{ route('courses.enroll_student', $course) }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                        class="w-30 px-2 py-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
+                                    <i class="fas fa-plus-circle"></i> &nbsp;Enroll
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

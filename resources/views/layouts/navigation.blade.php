@@ -34,9 +34,14 @@
                 <x-menu-separator/>
             @endif
             <x-menu-item title="Index" icon="phosphor.house.line" link="/index"/>
-            {{--            @AdminOrProf--}}
+
+            @IsStudent
+            <x-menu-item title="Courses" icon="phosphor-read.cv.logo.fill" link="{{ route('student.courses-list') }}"/>
+            @endIsStudent
+
+            @AdminOrProf
             <x-menu-item title="Courses" icon="phosphor.read.cv.logo.fill" link="/courses"/>
-            {{--            @endAdminOrProf--}}
+            @endAdminOrProf
             @if(auth()->check() && auth()->user()->user_type === 'admin')
                 <x-menu-item title="Professors" icon="phosphor.chalkboard.teacher" link="/professors"/>
                 <x-menu-item title="Students" icon="phosphor.student.fill" link="/students"/>
