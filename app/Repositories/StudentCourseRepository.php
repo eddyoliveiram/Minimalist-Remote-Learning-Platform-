@@ -30,7 +30,7 @@ class StudentCourseRepository implements StudentCourseRepositoryInterface
     public function searchEnrolled($term, User $user): LengthAwarePaginator
     {
         $query = Course::whereHas('students', function ($query) use ($user) {
-            $query->where('students.id', $user->id);
+            $query->where('students.id', $user->student->id);
         });
 
         if ($term) {

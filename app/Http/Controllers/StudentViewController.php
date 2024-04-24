@@ -20,7 +20,11 @@ class StudentViewController extends Controller
         $courses = $this->courseRepository->searchUnenrolled(
             $request->input('search'), auth()->user()
         );
-        return view('student_courses_list', compact('courses'));
+        $courses_enrolled = $this->courseRepository->searchEnrolled(
+            $request->input('search'), auth()->user()
+        );
+        
+        return view('student_courses_list', compact('courses', 'courses_enrolled'));
     }
 
     public function enrollStudent(Course $course)
