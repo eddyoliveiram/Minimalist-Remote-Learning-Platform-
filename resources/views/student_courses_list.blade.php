@@ -25,9 +25,9 @@
             </form>
         </div>
 
-        @if (session('success'))
+        @if (session('enroll_success'))
             <x-div-message>
-                {{ session('success') }}
+                {{ session('enroll_success') }}
             </x-div-message>
         @endif
 
@@ -118,9 +118,9 @@
             </form>
         </div>
 
-        @if (session('success'))
+        @if (session('disenroll_success'))
             <x-div-message>
-                {{ session('success') }}
+                {{ session('disenroll_success') }}
             </x-div-message>
         @endif
 
@@ -177,12 +177,12 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <form action="{{ route('courses.enroll_student', $course) }}" method="POST">
+                            <form action="{{ route('courses.disenroll_student', $course) }}" method="POST">
                                 @csrf
-                                {{--                                <button type="submit"--}}
-                                {{--                                        class="w-30 px-2 py-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">--}}
-                                {{--                                    <i class="fas fa-plus-circle"></i> &nbsp;Enroll--}}
-                                {{--                                </button>--}}
+                                <button type="submit"
+                                        class="w-30 px-2 py-2 rounded-full flex items-center justify-center bg-red-500 text-white hover:bg-red-600">
+                                    <i class="fas fa-minus"></i> &nbsp;Disenroll
+                                </button>
                             </form>
                         </td>
                     </tr>

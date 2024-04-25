@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\StudentCourseRepositoryInterface;
 use App\Models\Course;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -23,7 +24,7 @@ class StudentViewController extends Controller
         $courses_enrolled = $this->courseRepository->searchEnrolled(
             $request->input('search'), auth()->user()
         );
-        
+
         return view('student_courses_list', compact('courses', 'courses_enrolled'));
     }
 
@@ -32,6 +33,14 @@ class StudentViewController extends Controller
         $studentId = auth()->user()->student->id;
         $course->students()->syncWithoutDetaching([$studentId]);
 
-        return redirect()->back()->with('success', 'Successfully enrolled in the course!');
+        return redirect()->back()->with('enroll_success', 'Successfully enrolled in the course!');
+    }
+
+    public function disenrollStudent(Course $course): RedirectResponse
+    {
+        $studentId = auth()->user()->student->id;
+        $course->students()->detach($studentId);
+
+        return redirect()->back()->with('disenroll_success', 'Successfully disenrolled from the course!');
     }
 }
