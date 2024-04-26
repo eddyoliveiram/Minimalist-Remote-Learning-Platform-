@@ -18,7 +18,6 @@ class StudentFactory extends Factory
     {
         return [
             'registration' => 'SR'.uniqid('', true),
-            'email' => fake()->email(),
             'phone' => fake()->phoneNumber
         ];
     }

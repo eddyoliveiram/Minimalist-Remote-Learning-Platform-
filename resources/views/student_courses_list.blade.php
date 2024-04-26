@@ -80,17 +80,48 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
                             {{--                            <x-modal-list-people :title="__('Professors')" :array="$course->professors"/>--}}
                             <livewire:modal-component type="professors" :data="$course"/>
-
+                            {{--                            <livewire:modalconfirm-component type="professors" :data="$course"/>--}}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <form action="{{ route('courses.enroll_student', $course) }}" method="POST">
+
+                            <form id="enrollmentForm" action="{{ route('courses.enroll_student', $course) }}"
+                                  method="POST" style="display:none;">
                                 @csrf
-                                <button type="submit"
-                                        class="w-30 px-2 py-2 rounded-full flex items-center justify-center bg-green-500 text-white hover:bg-green-600">
-                                    <i class="fas fa-plus-circle"></i> &nbsp;Enroll
-                                </button>
                             </form>
+
+                            <div x-data="{ showModal: false }">
+                                <button @click="showModal = true"
+                                        class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-700">
+                                    <i class="fas fa-plus"></i> &nbsp;Enroll
+                                </button>
+
+                                <div x-show="showModal"
+                                     x-transition:enter="transition ease-out duration-300"
+                                     x-transition:enter-start="opacity-0 transform scale-90"
+                                     x-transition:enter-end="opacity-100 transform scale-100"
+                                     x-transition:leave="transition ease-in duration-300"
+                                     x-transition:leave-start="opacity-100 transform scale-100"
+                                     x-transition:leave-end="opacity-0 transform scale-90"
+                                     class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50">
+                                    <div class="bg-white rounded-lg p-6 shadow-xl max-w-sm w-full">
+                                        <h2 class="text-lg font-semibold">Confirm Action</h2>
+                                        <p class="text-gray-700">Are you sure you want to enroll?</p>
+                                        <div class="mt-4 flex justify-end space-x-3">
+                                            <button @click="showModal = false"
+                                                    class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                                                Cancel
+                                            </button>
+                                            <button
+                                                @click="showModal = false; document.getElementById('enrollmentForm').submit();"
+                                                class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
+                                                Confirm
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </td>
                     </tr>
                 @endforeach
@@ -177,14 +208,45 @@
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
-                            <form action="{{ route('courses.disenroll_student', $course) }}" method="POST">
+                            <form id="disenrollmentForm" action="{{ route('courses.disenroll_student', $course) }}"
+                                  method="POST">
                                 @csrf
-                                <button type="submit"
-                                        class="w-30 px-2 py-2 rounded-full flex items-center justify-center bg-red-500 text-white hover:bg-red-600">
+
+                            </form>
+
+                            <div x-data="{ showModal: false }">
+                                <button @click="showModal = true"
+                                        class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-700">
                                     <i class="fas fa-minus"></i> &nbsp;Disenroll
                                 </button>
-                            </form>
+
+                                <div x-show="showModal"
+                                     x-transition:enter="transition ease-out duration-300"
+                                     x-transition:enter-start="opacity-0 transform scale-90"
+                                     x-transition:enter-end="opacity-100 transform scale-100"
+                                     x-transition:leave="transition ease-in duration-300"
+                                     x-transition:leave-start="opacity-100 transform scale-100"
+                                     x-transition:leave-end="opacity-0 transform scale-90"
+                                     class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50">
+                                    <div class="bg-white rounded-lg p-6 shadow-xl max-w-sm w-full">
+                                        <h2 class="text-lg font-semibold">Confirm Action</h2>
+                                        <p class="text-gray-700">Are you sure you want to disenroll?</p>
+                                        <div class="mt-4 flex justify-end space-x-3">
+                                            <button @click="showModal = false"
+                                                    class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                                                Cancel
+                                            </button>
+                                            <button
+                                                @click="showModal = false; document.getElementById('disenrollmentForm').submit();"
+                                                class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                                                Confirm
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
+                       
                     </tr>
                 @endforeach
 
