@@ -35,7 +35,7 @@ class Course extends Model
 
     public function status(): BelongsTo
     {
-        return $this->belongsTo(CourseStatus::class, '');
+        return $this->belongsTo(CourseStatus::class, 'status_id');
     }
 
     public function professors(): BelongsToMany

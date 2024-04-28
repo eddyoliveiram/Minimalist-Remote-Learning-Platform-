@@ -11,7 +11,7 @@ class StudentCourseRepository implements StudentCourseRepositoryInterface
 {
     public function searchUnenrolled($term, User $user): LengthAwarePaginator
     {
-        $query = Course::with(['students.user', 'professors.user', 'modules'])
+        $query = Course::with(['students.user', 'professors.user', 'modules', 'professors', 'status'])
             ->whereDoesntHave('students', function ($query) use ($user) {
                 $query->where('students.id', $user->student->id);
             });
@@ -29,9 +29,11 @@ class StudentCourseRepository implements StudentCourseRepositoryInterface
 
     public function searchEnrolled($term, User $user): LengthAwarePaginator
     {
-        $query = Course::whereHas('students', function ($query) use ($user) {
-            $query->where('students.id', $user->student->id);
-        });
+        $query = Course::with(['students.user', 'professors.user', 'modules', 'professors', 'status'])
+            ->whereHas('students', function ($query) use ($user) {
+                $query->where('students.id', $user->student->id);
+            });
+
 
         if ($term) {
             $query->where(function ($query) use ($term) {

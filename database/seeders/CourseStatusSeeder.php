@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\CourseStatus;
+use Illuminate\Database\Seeder;
 
 class CourseStatusSeeder extends Seeder
 {
@@ -16,8 +16,9 @@ class CourseStatusSeeder extends Seeder
     {
         $courseStatuses = [
             ['id' => 1, 'description' => 'Editing'],
-            ['id' => 2, 'description' => 'Ready'],
-            ['id' => 3, 'description' => 'Finished'],
+            ['id' => 2, 'description' => 'Open'],
+            ['id' => 3, 'description' => 'In Progress'],
+            ['id' => 4, 'description' => 'Finished'],
         ];
 
         foreach ($courseStatuses as $status) {

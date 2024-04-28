@@ -44,9 +44,10 @@
             @php
                 $statusOptions = [
                     ['id' => null, 'name' => '- Select -'],
-                    ['id' => 1, 'name' => 'Editing'],
-                    ['id' => 2, 'name' => 'Ready'],
-                    ['id' => 3, 'name' => 'Finished']
+                       ['id' => 1, 'description' => 'Editing'],
+                        ['id' => 2, 'description' => 'Open'],
+                        ['id' => 3, 'description' => 'In Progress'],
+                        ['id' => 4, 'description' => 'Finished']
                 ];
             @endphp
 
