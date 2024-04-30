@@ -26,96 +26,98 @@
 
     <h1 class="text-2xl font-bold text-center mb-4">My Courses</h1>
     @foreach($courses_enrolled as $course)
-        <article class="forecast mx-auto  mt-4">
-            <article
-                class="day-forecast bg-white rounded-lg shadow-lg p-4 hover:shadow-2xl cursor-pointer transition-shadow duration-300 ease-in-out mb-4 flex justify-between items-center">
-                <div>
-                    <h2 class="font-semibold text-lg">{{$course->name}}</h2>
-                    <p>Duration: {{$course->duration.'h'}}</p>
-                    <p>Status: {{$course->status->description}}</p>
-                </div>
-                <div class="flex items-center">
+        <a href="{{ route('student.course-show', ['course_id' => $course->id]) }}" class="block">
+            <article class="forecast mx-auto  mt-4">
+                <article
+                    class="day-forecast bg-white rounded-lg shadow-lg p-4 hover:shadow-2xl cursor-pointer transition-shadow duration-300 ease-in-out mb-4 flex justify-between items-center">
+                    <div>
+                        <h2 class="font-semibold text-lg">{{$course->name}}</h2>
+                        <p>Duration: {{$course->duration.'h'}}</p>
+                        <p>Status: {{$course->status->description}}</p>
+                    </div>
+                    <div class="flex items-center">
 
-                    <form id="disenrollmentForm" action="{{ route('courses.disenroll_student', $course) }}"
-                          method="POST">
-                        @csrf
-                    </form>
+                        <form id="disenrollmentForm" action="{{ route('courses.disenroll_student', $course) }}"
+                              method="POST">
+                            @csrf
+                        </form>
 
-                    <div x-data="{ showModalDetails: false }">
-                        <button @click="showModalDetails = true"
-                                class="px-4 py-2 bg-blue-500 text-white font-bold hover:bg-blue-700 rounded-l text-xs">
-                            <i class="fas fa-eye"></i> More details
-                        </button>
+                        <div x-data="{ showModalDetails: false }">
+                            <button @click="showModalDetails = true"
+                                    class="px-4 py-2 bg-blue-500 text-white font-bold hover:bg-blue-700 rounded-l text-xs">
+                                <i class="fas fa-eye"></i> More details
+                            </button>
 
-                        <div x-show="showModalDetails"
-                             x-transition:enter="transition ease-out duration-300"
-                             x-transition:enter-start="opacity-0 transform scale-90"
-                             x-transition:enter-end="opacity-100 transform scale-100"
-                             x-transition:leave="transition ease-in duration-300"
-                             x-transition:leave-start="opacity-100 transform scale-100"
-                             x-transition:leave-end="opacity-0 transform scale-90"
-                             class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50">
-                            <div class="bg-white rounded-lg p-6 shadow-xl max-w-sm w-full">
-                                {{--                                <h2 class="text-lg font-semibold">Details</h2>--}}
-                                <div class="mt-3 text-center">
-                                    <h3 class="text-lg leading-6 font-medium text-gray-900 bg-gray-200 p-2">{{' list'}}</h3>
-                                    <div class="mt-2">
-                                        <ul>
-                                            @forelse ($course->professors as $p)
-                                                <li>{{ ($p->user->name) ?? $p->name }}</li>
-                                            @empty
-                                                <li>- Nobody so far -</li>
-                                            @endforelse
-                                        </ul>
+                            <div x-show="showModalDetails"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 transform scale-90"
+                                 x-transition:enter-end="opacity-100 transform scale-100"
+                                 x-transition:leave="transition ease-in duration-300"
+                                 x-transition:leave-start="opacity-100 transform scale-100"
+                                 x-transition:leave-end="opacity-0 transform scale-90"
+                                 class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50">
+                                <div class="bg-white rounded-lg p-6 shadow-xl max-w-sm w-full">
+                                    {{--                                <h2 class="text-lg font-semibold">Details</h2>--}}
+                                    <div class="mt-3 text-center">
+                                        <h3 class="text-lg leading-6 font-medium text-gray-900 bg-gray-200 p-2">{{' list'}}</h3>
+                                        <div class="mt-2">
+                                            <ul>
+                                                @forelse ($course->professors as $p)
+                                                    <li>{{ ($p->user->name) ?? $p->name }}</li>
+                                                @empty
+                                                    <li>- Nobody so far -</li>
+                                                @endforelse
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 flex justify-end space-x-3">
+                                        <button @click="showModalDetails = false"
+                                                class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                                            Close
+                                        </button>
+
                                     </div>
                                 </div>
-                                <div class="mt-4 flex justify-end space-x-3">
-                                    <button @click="showModalDetails = false"
-                                            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-                                        Close
-                                    </button>
+                            </div>
+                        </div>
 
+                        <div x-data="{ showModal: false }">
+                            <button @click="showModal = true"
+                                    class="px-4 py-2 bg-red-500 text-white font-bold hover:bg-red-700 rounded-r text-xs">
+                                <i class="fas fa-minus"></i> &nbsp;Disenroll
+                            </button>
+
+                            <div x-show="showModal"
+                                 x-transition:enter="transition ease-out duration-300"
+                                 x-transition:enter-start="opacity-0 transform scale-90"
+                                 x-transition:enter-end="opacity-100 transform scale-100"
+                                 x-transition:leave="transition ease-in duration-300"
+                                 x-transition:leave-start="opacity-100 transform scale-100"
+                                 x-transition:leave-end="opacity-0 transform scale-90"
+                                 class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50">
+                                <div class="bg-white rounded-lg p-6 shadow-xl max-w-sm w-full">
+                                    <h2 class="text-lg font-semibold">Confirm Action</h2>
+                                    <p class="text-gray-700">Are you sure you want to disenroll?</p>
+                                    <div class="mt-4 flex justify-end space-x-3">
+                                        <button @click="showModal = false"
+                                                class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                                            Cancel
+                                        </button>
+                                        <button
+                                            @click="showModal = false; document.getElementById('disenrollmentForm').submit();"
+                                            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                                            Confirm
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
-
-                    <div x-data="{ showModal: false }">
-                        <button @click="showModal = true"
-                                class="px-4 py-2 bg-red-500 text-white font-bold hover:bg-red-700 rounded-r text-xs">
-                            <i class="fas fa-minus"></i> &nbsp;Disenroll
-                        </button>
-
-                        <div x-show="showModal"
-                             x-transition:enter="transition ease-out duration-300"
-                             x-transition:enter-start="opacity-0 transform scale-90"
-                             x-transition:enter-end="opacity-100 transform scale-100"
-                             x-transition:leave="transition ease-in duration-300"
-                             x-transition:leave-start="opacity-100 transform scale-100"
-                             x-transition:leave-end="opacity-0 transform scale-90"
-                             class="fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center p-4 z-50">
-                            <div class="bg-white rounded-lg p-6 shadow-xl max-w-sm w-full">
-                                <h2 class="text-lg font-semibold">Confirm Action</h2>
-                                <p class="text-gray-700">Are you sure you want to disenroll?</p>
-                                <div class="mt-4 flex justify-end space-x-3">
-                                    <button @click="showModal = false"
-                                            class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
-                                        Cancel
-                                    </button>
-                                    <button
-                                        @click="showModal = false; document.getElementById('disenrollmentForm').submit();"
-                                        class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                                        Confirm
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
+                </article>
             </article>
-        </article>
+        </a>
     @endforeach
 
     <div class="mt-10">{{ $courses_enrolled->links() }}</div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\StudentCourseRepositoryInterface;
 use App\Models\Course;
+use App\Repositories\ModuleRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -11,7 +12,8 @@ use Illuminate\View\View;
 class StudentViewController extends Controller
 {
     public function __construct(
-        protected StudentCourseRepositoryInterface $courseRepository
+        protected StudentCourseRepositoryInterface $courseRepository,
+        protected ModuleRepository $moduleRepository
     ) {
 //        dd(get_class($this->courseRepository));
     }
@@ -26,6 +28,14 @@ class StudentViewController extends Controller
         );
 
         return view('student_courses_list', compact('courses', 'courses_enrolled'));
+    }
+
+    public function show(Request $request)
+    {
+        $course = Course::findOrFail($request->input('course_id'));
+
+        $modules = $this->moduleRepository->search($request->input('search'), $request->input('course_id'));
+        return view('modules_index', compact('course', 'modules'));
     }
 
     public function enrollStudent(Course $course)
