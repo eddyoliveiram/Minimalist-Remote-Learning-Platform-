@@ -35,7 +35,7 @@ class StudentViewController extends Controller
         $course = Course::findOrFail($request->input('course_id'));
 
         $modules = $this->moduleRepository->search($request->input('search'), $request->input('course_id'));
-        return view('modules_index', compact('course', 'modules'));
+        return view('student_course_modules', compact('course', 'modules'));
     }
 
     public function enrollStudent(Course $course)
