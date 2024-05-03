@@ -12,89 +12,35 @@
         </div>
     </x-card>
 
+    <div class="grid grid-cols-1 xs:grid-cols-3 gap-4 p-4">
 
-    <x-card class="mt-2">
-        @if (session('success'))
-            <x-div-message>
-                {{ session('success') }}
-            </x-div-message>
-        @endif
-        <div class="overflow-x-auto">
-            <div class="flex justify-between items-center mb-2">
-                <form action="{{route('modules.index', ['course_id' => $course->id])}}" method="GET" class="flex">
-                    @foreach(request()->except('search') as $key => $value)
-                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                    @endforeach
-                    <input type="text" name="search" placeholder="Any column..."
-                           class="rounded-l-lg p-2 border-t mr-0 border-b border-l text-gray-800 border-gray-300 bg-white">
-                    <button type="submit"
-                            class="px-4 rounded-r-lg bg-gray-100 text-gray-600 border-gray-300 hover:bg-gray-200 border-t border-b border-r">
-                        Search
-                    </button>
-                </form>
+        @foreach($modules as $c => $module)
+            <div class="rounded overflow-hidden shadow-lg ">
+                <div class="text-gray-500 italic bg-gray-200 p-4">
+                    Module {{ str_pad($c + 1, 2, '0', STR_PAD_LEFT) }}</div>
+                <div class="px-6 py-4">
+                    <div class="font-bold text-xl mb-2">{{ $module->name }}</div>
+                    <p class="text-gray-700 text-base">
+                        {{ $module->description }}
+                    </p>
+                </div>
+                <div class="px-6 pb-2 mb-4">
+                    <a href="{{ route('student.modules.show-contents',['module' => $module->id]) }}"
+                       class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded ">
+                        <i class="fas fa-circle-arrow-right"></i> Open
+                    </a>
+                </div>
             </div>
+        @endforeach
+    </div>
 
-            <table class="min-w-full table-auto divide-y divide-gray-200 shadow-md">
-                <thead class="bg-gray-100">
-                <tr>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-                        Module
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-                        Contents
-                    </th>
-                    <th scope="col"
-                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ">
-                        Questions
-                    </th>
-                </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                @if($modules->isEmpty())
-                    <tr>
-                        <td colspan="100%"
-                            class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                            No modules found with your search data.
-                        </td>
-                    </tr>
-                @endif
-                @foreach($modules as $module)
-                    <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{$module->name}}
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            <a href="{{ route('contents.index',['module_id' => $module->id]) }}"
-                               class="text-white bg-green-500 hover:bg-green-600 border border-gray-300 p-2 rounded-full">
-                                <i class="fas fa-circle-arrow-right"></i>
-                                &nbsp;{{ count($module->contents) }}
-                            </a>
-                        </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            <a href="{{ route('questions.index',['module_id' => $module->id]) }}"
-                               class="text-white bg-green-500 hover:bg-green-600 border border-gray-300 p-2 rounded-full">
-                                <i class="fas fa-circle-arrow-right"></i>
-                                &nbsp;{{count($module->questions)}}
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
-
-                </tbody>
-            </table>
-            <div class="mt-4">{{ $modules->links() }}</div>
-            <div class="flex w-full mt-4 space-x-4">
-
-                <button onclick="history.back()"
-                        class="transition duration-300 bg-gray-100 p-4 px-5 font-semibold text-gray-700 rounded-md text-sm
+    <div class="flex w-full mt-4 space-x-4 ">
+        <button onclick="history.back()"
+                class="transition duration-300 bg-gray-100 p-4 px-5 font-semibold text-gray-700 rounded-md text-sm
                     hover:bg-gray-200">
-                    <i class=" fas fa-circle-arrow-left"></i> Back
-                </button>
-            </div>
-        </div>
-    </x-card>
+            <i class=" fas fa-circle-arrow-left"></i> Back
+        </button>
+    </div>
 
 </x-app-layout>
 

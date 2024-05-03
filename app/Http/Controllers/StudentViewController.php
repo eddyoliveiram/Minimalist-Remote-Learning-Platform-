@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\StudentCourseRepositoryInterface;
+use App\Models\Content;
 use App\Models\Course;
+use App\Models\Module;
 use App\Repositories\ModuleRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -52,5 +54,13 @@ class StudentViewController extends Controller
         $course->students()->detach($studentId);
 
         return redirect()->back()->with('disenroll_success', 'Successfully disenrolled from the course!');
+    }
+
+    public function showContents($module)
+    {
+        $module = Module::findOrFail($module);
+        $contents = Content::where('module_id', $module->id)->orderBy('position')->get();
+        $course = $module->course;
+        return view('student_contents_list', compact('module', 'contents', 'course'));
     }
 }

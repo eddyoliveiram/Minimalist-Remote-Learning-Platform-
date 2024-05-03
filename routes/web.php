@@ -62,6 +62,8 @@ Route::middleware('auth')->group(function () {
             [StudentViewController::class, 'enrollStudent'])->name('courses.enroll_student');
         Route::post('courses/{course}/disenroll',
             [StudentViewController::class, 'disenrollStudent'])->name('courses.disenroll_student');
+        Route::get('student/modules/{module}/show-contents',
+            [StudentViewController::class, 'showContents'])->name('student.modules.show-contents');
     });
 
 
