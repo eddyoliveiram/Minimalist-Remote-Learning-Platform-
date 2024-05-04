@@ -18,7 +18,7 @@
         <tr>
             <td colspan="100%"
                 class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
-                No courses found with your search data.
+                No courses available.
             </td>
         </tr>
     @endif
