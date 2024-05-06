@@ -6,6 +6,7 @@ use App\Contracts\StudentCourseRepositoryInterface;
 use App\Models\Content;
 use App\Models\Course;
 use App\Models\Module;
+use App\Models\Question;
 use App\Repositories\ModuleRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -60,7 +61,9 @@ class StudentViewController extends Controller
     {
         $module = Module::findOrFail($module);
         $contents = Content::where('module_id', $module->id)->orderBy('position')->get();
+        $questions = Question::with('alternatives')->where('module_id', $module->id)->get();
+//        dd($questions);
         $course = $module->course;
-        return view('student_contents_list', compact('module', 'contents', 'course'));
+        return view('student_contents_list', compact('module', 'contents', 'course', 'questions'));
     }
 }

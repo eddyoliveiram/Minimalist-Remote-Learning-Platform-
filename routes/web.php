@@ -29,7 +29,7 @@ Route::get('/', function () {
         return redirect()->route('courses.create');
     }
 
-    return view('welcome');
+    return view('auth.login');
 });
 
 
